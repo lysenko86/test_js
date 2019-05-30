@@ -6,7 +6,7 @@
 </head>
 <body>
     <!-- Целевой контейнер -->
-    <div class="react-container"></div>
+    <div id="react-container"></div>
 
     <!-- Библиотека React и ReactDOM -->
     <script src="https://unpkg.com/react@15.4.2/dist/react.js"></script>
@@ -14,6 +14,8 @@
 
     <script>
         // Чистый код React и JavaScript
+        var dish = React.createElement('h1', null, 'Baked Salmon');
+        ReactDOM.render(dish, document.getElementById('react-container'));
     </script>
 </body>
 </html>
