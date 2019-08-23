@@ -1,9 +1,9 @@
 import { Component } from 'react'
 //import { v4 } from 'uuid'
-import AddColorForm from './components/AddColorForm'
-import ColorList from './components/ColorList'
+//import AddColorForm from './components/AddColorForm'
+//import ColorList from './components/ColorList'
 
-export class App extends Component {
+export default class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -14,8 +14,8 @@ export class App extends Component {
         const { colors } = this.state;
         return (
             <div className="app">
-                <AddColorForm />
-                <ColorList colors={colors}>
+                /*<AddColorForm />
+                <ColorList colors={colors} />*/
             </div>
         )
     }
