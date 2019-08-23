@@ -1,3 +1,4 @@
+import React from 'react';
 import Star from './Star'
 import './StarRating.css';
 
