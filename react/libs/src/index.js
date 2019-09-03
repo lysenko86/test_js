@@ -1,7 +1,12 @@
+/* Допоміжні бібліотеки добре підключати  окремо тільки для тих компонентів,
+      яким вони потрібні, оскільки важкі ліби такі як JQuery забирають ресурси.
+      Підключати треба в componentDidMount() бо вже компонент є в DOM, так само
+      і динамічні дані підгружати слід в componentDidMount(). */
+
 import React from 'react'
 import { render } from 'react-dom'
 import fetch from 'isomorphic-fetch'
-import { extent, select, timeYears } from 'd3'
+import d3 from 'd3'
 
 
 
@@ -48,23 +53,33 @@ const historicDatesForSkiing = [
     { year: 1964, event: 'Plastic Buckle Boots Available' }
 ];
 
+/* Створимо 2 компоненти додаткові, щоб роботу з UI робив реакт а не ліба */
+const Canvas = ({children}) => <svg height="200" width="500">{children}</svg>;
+
+const TimelineDot = ({position, txt}) => <g transform={`translate(${position}, 0)`}>
+    <circle cy={160} r={5} style={{fill: 'blue'}} />
+    <text y={115} x={-95} transform="rotate(-45)" style={{fontSize: '10px'}}>{txt}</text>
+</g>;
+/* --------------------- */
+
 class Timeline extends React.Component {
     constructor(props) {
         const { data=[] } = props;
-        const times = extent(data.map(d => d.year));
+        const times = d3.extent(data.map(d => d.year));
         const range = [50, 450];
         super(props);
+        this.scale = d3.time.scale().domain(times).range(range);
         this.state = { data, times, range };
     }
 
+    /* Цей код стає не потрібним, оскільки з UI має працюваим реакт
     componentDidMount() {
         let group;
         const { data, times, range } = this.state;
         const { target } = this.refs;
-        const scale = timeYears.scale().domain(times).range(range);
-        select(target).append('svg').attr('height', 200).attr('width', 500);
-        group = select(target.children[0]).selectAll('g').data(data).enter()
-            .append('g').attr('transform', (d, i) => `translate(${scale(d.year)}, 0)`);
+        d3.select(target).append('svg').attr('height', 200).attr('width', 500);
+        group = d3.select(target.children[0]).selectAll('g').data(data).enter()
+            .append('g').attr('transform', (d, i) => `translate(${this.scale(d.year)}, 0)`);
         group.append('circle').attr('cy', 160).attr('r', 5).style('fill', 'blue');
         group.append('text').text(d => `${d.year} - ${d.event}`)
             .style('font-size', 10).attr('y', 115).attr('x', -95)
@@ -75,6 +90,19 @@ class Timeline extends React.Component {
         return <div className="timeline">
             <h1>{this.props.name}</h1>
             <div ref="target"></div>
+        </div>
+    }
+    */
+
+    render() {
+        const { data } = this.state;
+        const { scale } = this;
+        return <div className="timeline">
+            <h1>{this.props.name} Timeline</h1>
+            <Canvas>
+                {data.map((d, i) =>
+                    <TimelineDot key={i} position={scale(d.year)} txt={`${d.year} - ${d.event}`} />)}
+            </Canvas>
         </div>
     }
 }
