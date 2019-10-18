@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import './item-status-filter.css';
 
 export default class ItemStatusFilter extends Component {
+    buttons = [
+        { name: 'all', label: 'All' },
+        { name: 'active', label: 'Active' },
+        { name: 'done', label: 'Done' }
+    ]
+
     state = {
         filterProp: ''
     }
@@ -13,24 +19,23 @@ export default class ItemStatusFilter extends Component {
     }
 
     render () {
+
+        const { filter, onFilterChange } = this.props;
+
+        const buttons = this.buttons.map(({ name, label }) => {
+            const isActive = filter === name;
+            const clazz = isActive ? 'btn-info' : 'btn-outline-secondary';
+            return <button
+                type="button"
+                className={ `btn ${clazz}` }
+                key={ name }
+                onClick={ () => onFilterChange(name) }>{label}</button>
+        });
+
         const { filterProp } = this.state;
         return (
             <div className="btn-group">
-                <button
-                    type="button"
-                    className={ `btn ${!filterProp ? 'btn-info' : 'btn-outline-secondary'}` }
-                    value=""
-                    onClick={ this.filterChange }>All</button>
-                <button
-                    type="button"
-                    className={ `btn ${filterProp === 'done:false' ? 'btn-info' : 'btn-outline-secondary'}` }
-                    value="done:false"
-                    onClick={ this.filterChange }>Active</button>
-                <button
-                    type="button"
-                    className={ `btn ${filterProp === 'done:true' ? 'btn-info' : 'btn-outline-secondary'}` }
-                    value="done:true"
-                    onClick={ this.filterChange }>Done</button>
+                { buttons }
             </div>
         );
     }
