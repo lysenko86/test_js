@@ -8,16 +8,6 @@ export default class ItemStatusFilter extends Component {
         { name: 'done', label: 'Done' }
     ]
 
-    state = {
-        filterProp: ''
-    }
-
-    filterChange = (e) => {
-        const filterProp = e.target.value;
-        this.setState({ filterProp });
-        this.props.onFilterChange(filterProp);
-    }
-
     render () {
 
         const { filter, onFilterChange } = this.props;
@@ -32,7 +22,6 @@ export default class ItemStatusFilter extends Component {
                 onClick={ () => onFilterChange(name) }>{label}</button>
         });
 
-        const { filterProp } = this.state;
         return (
             <div className="btn-group">
                 { buttons }
