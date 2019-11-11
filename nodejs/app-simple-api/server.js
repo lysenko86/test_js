@@ -1,34 +1,39 @@
+// sources:
+// - https://monsterlessons.com/project/series/pishem-api-na-nodejs
+// - https://www.youtube.com/watch?v=MaxJ6RdEXVI&list=PLevjgbzdU8UwZbQbiPR4GQcwdkNxDUeUc
+// - https://www.youtube.com/watch?v=8bE_PBRriyU
+
 const express = require('express');
 const bodyParser = require('body-parser');
+const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
+const db = require('./db');
+const artistsController = require('./controllers/artists');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const artists = [
-    { id: 1, name: 'Metallica' },
-    { id: 2, name: 'Iron Maiden' },
-    { id: 3, name: 'Deep Purple' }
-];
-
 app.get('/', function(req, res){
-    res.send('GOOD');
+    res.send('Welcome to API!');
 });
 
-app.get('/artists', function(req, res){
-    res.send(artists);
-});
+app.get('/artists', artistsController.all);
 
-app.get('/artists/:id', function(req, res){
-    const artist = artists.find(artist => artist.id === Number(req.params.id));
-    res.send(artist);
-});
+app.get('/artists/:id', artistsController.findById);
 
-app.post('/artists', function(req, res){
-    console.log(req.body);
-});
+app.post('/artists', artistsController.create);
 
-app.listen(3001, () => {
-    console.log('Server started...');
+app.put('/artists/:id', artistsController.update);
+
+app.delete('/artists/:id', artistsController.delete);
+
+db.connect('mongodb://localhost:27017', function(err){
+    if (err) {
+        return console.log(err);
+    }
+    app.listen(3001, () => {
+        console.log('Server started on port 3001.');
+    });
 });
