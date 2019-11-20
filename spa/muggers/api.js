@@ -1,7 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Mugger = require('./mugger');
+//const Mugger = require('./mugger');
 
+router.get('/', (req, res) => {
+  console.log('TEST');
+    res.send('GOOD');
+});
+/*
 router.get('/muggers', (req, res) => {
     Mugger.find({})
         .then(mugger => {
@@ -32,5 +37,5 @@ router.delete('/muggers/:id', (req, res) => {
             res.send(mugger);
         });
 });
-
+*/
 module.exports = router;

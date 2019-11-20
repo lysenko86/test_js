@@ -1,6 +1,5 @@
 // sources:
 // - https://monsterlessons.com/project/series/pishem-api-na-nodejs
-// - https://www.youtube.com/watch?v=MaxJ6RdEXVI&list=PLevjgbzdU8UwZbQbiPR4GQcwdkNxDUeUc
 // - https://www.youtube.com/watch?v=8bE_PBRriyU
 
 const express = require('express');
