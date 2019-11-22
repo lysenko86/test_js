@@ -1,6 +1,8 @@
-// sources:
-// - https://monsterlessons.com/project/series/pishem-api-na-nodejs
-// - https://www.youtube.com/watch?v=8bE_PBRriyU
+/*
+    source: https://monsterlessons.com/project/series/pishem-api-na-nodejs
+    stack: nvm, nodejs, express, bodyParser, mongodb, Postman
+    start ---> node server.js
+*/
 
 const express = require('express');
 const bodyParser = require('body-parser');

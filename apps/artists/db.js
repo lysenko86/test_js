@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 
-const dbName = 'myapi';
+const dbName = 'artists-db';
 const state = {
     db: null
 };
