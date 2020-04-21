@@ -1,5 +1,11 @@
 /*
-    source: https://www.udemy.com/course/pro-react-redux
-    stack: create-react-app, bootstrap, bootswatch.com, react, react-dom, react-scripts
-    start ---> npm run start
+	source: https://www.udemy.com/course/pro-react-redux
+	stack: create-react-app, bootstrap, swapi.dev, react
+	start ---> npm run start
 */
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/app';
+
+ReactDOM.render(<App />, document.getElementById('root'));
