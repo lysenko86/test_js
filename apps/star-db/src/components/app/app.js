@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
 import ErrorBoundry from "../error-boundry";
-import Row from "../row";
-import ItemList from "../item-list";
 import ItemDetails, { Record } from "../item-details/item-details";
 import './app.css';
-import SwapiService from '../../services/swapi-service';
 import {
 	PersonDetails,
 	PlanetDetails,
@@ -17,7 +14,6 @@ import {
 } from '../sw-components';
 
 export default class App extends Component {
-	swapiService = new SwapiService();
 	state = {
 		showRandomPlanet: true
 	};
@@ -33,38 +29,6 @@ export default class App extends Component {
 	render () {
 		const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
 
-		const {
-			getPerson,
-			getStarship,
-			getPersonImage,
-			getStarshipImage,
-			getAllPeople,
-			getAllPlanets
-		 } = this.swapiService;
-
-		const personDetails = (
-			<ItemDetails
-				itemId={11}
-				getData={getPerson}
-				getImageUrl={getPersonImage}
-			>
-				<Record field="gender" label="Gender" />
-				<Record field="eyeColor" label="Eye Color" />
-			</ItemDetails>
-		);
-
-		const starshipDetails = (
-			<ItemDetails
-				itemId={5}
-				getData={getStarship}
-				getImageUrl={getStarshipImage}
-			>
-				<Record field="model" label="Model" />
-				<Record field="length" label="Length" />
-				<Record field="costInCredits" label="Cost" />
-			</ItemDetails>
-		);
-
 		return (
 			<ErrorBoundry>
 				<div className="stardb-app">
@@ -74,15 +38,9 @@ export default class App extends Component {
 					<PlanetDetails itemId={5} />
 					<StarshipDetails itemId={9} />
 
-					<PersonList>
-						{ ({name}) => <span>{name}</span> }
-					</PersonList>
-					<StarshipList>
-						{ ({name}) => <span>{name}</span> }
-					</StarshipList>
-					<PlanetList>
-						{ ({name}) => <span>{name}</span> }
-					</PlanetList>
+					<PersonList>{({name}) => <span>{name}</span>}</PersonList>
+					<StarshipList>{({name}) => <span>{name}</span>}</StarshipList>
+					<PlanetList>{({name}) => <span>{name}</span>}</PlanetList>
 				</div>
 			</ErrorBoundry>
 		);

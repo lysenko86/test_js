@@ -3,6 +3,8 @@
 	stack: nodejs, express, nodemon, bodyParser, mongodb, mongoose, Postman, Robo 3T, React, Redux
 	npm install -g nodemon
 	start ---> nodemon index.js
+
+	source of react: https://www.youtube.com/watch?v=kOFdpM7MNDc&list=PLevjgbzdU8UxfbRrLb_ILGXRAHbeJT7w2
 */
 
 const express = require('express');
