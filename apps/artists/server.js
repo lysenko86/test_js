@@ -1,7 +1,7 @@
 /*
-    source: https://monsterlessons.com/project/series/pishem-api-na-nodejs
-    stack: nvm, nodejs, express, bodyParser, mongodb, Postman
-    start ---> node server.js
+	source: https://monsterlessons.com/project/series/pishem-api-na-nodejs
+	stack: nvm, nodejs, express, bodyParser, mongodb, Postman
+	start ---> node server.js
 */
 
 const express = require('express');
@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(req, res){
-    res.send('Welcome to API!');
+	res.send('Welcome to API!');
 });
 
 app.get('/artists', artistsController.all);
@@ -31,10 +31,10 @@ app.put('/artists/:id', artistsController.update);
 app.delete('/artists/:id', artistsController.delete);
 
 db.connect('mongodb://localhost:27017', function(err){
-    if (err) {
-        return console.log(err);
-    }
-    app.listen(3001, () => {
-        console.log('Server started on port 3001.');
-    });
+	if (err) {
+		return console.log(err);
+	}
+	app.listen(3001, () => {
+		console.log('Server started on port 3001.');
+	});
 });
