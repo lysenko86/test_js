@@ -3,41 +3,35 @@ const router = express.Router();
 const Mugger = require('./mugger');
 
 router.get('/muggers', (req, res) => {
-    Mugger.find({})
-        .then(muggers => {
-            res.send(muggers);
-        });
+	Mugger.find({}).then(muggers => {
+		res.send(muggers);
+	});
 });
 
 router.get('/muggers/:id', (req, res) => {
-    Mugger.find({ _id: req.params.id })
-        .then(mugger => {
-            res.send(mugger[0]);
-        });
+	Mugger.findOne({ _id: req.params.id }).then(mugger => {
+		res.send(mugger);
+	});
 });
 
 router.post('/muggers', (req, res) => {
-    Mugger.create(req.body)
-        .then(mugger => {
-            res.send(mugger);
-        });
+	Mugger.create(req.body).then(mugger => {
+		res.send(mugger);
+	});
 });
 
 router.put('/muggers/:id', (req, res) => {
-    Mugger.findByIdAndUpdate({ _id: req.params.id }, req.body)
-        .then(() => {
-            Mugger.findOne({ _id: req.params.id })
-                .then(mugger => {
-                    res.send(mugger);
-                });
-        });
+	Mugger.findByIdAndUpdate({ _id: req.params.id }, req.body).then(() => {
+		Mugger.findOne({ _id: req.params.id }).then(mugger => {
+			res.send(mugger);
+		});
+	});
 });
 
 router.delete('/muggers/:id', (req, res) => {
-    Mugger.deleteOne({ _id: req.params.id })
-        .then(mugger => {
-            res.send(mugger);
-        });
+	Mugger.deleteOne({ _id: req.params.id }).then(mugger => {
+		res.send(mugger);
+	});
 });
 
 module.exports = router;
