@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../header';
-import RandomPlanet from '../random-planet';
+//import RandomPlanet from '../random-planet';
 import ErrorBoundry from "../error-boundry";
-import ItemDetails, { Record } from "../item-details/item-details";
 import './app.css';
 import {
 	PersonDetails,
@@ -27,7 +26,7 @@ export default class App extends Component {
 	};
 
 	render () {
-		const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
+		//const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
 
 		return (
 			<ErrorBoundry>
@@ -38,9 +37,9 @@ export default class App extends Component {
 					<PlanetDetails itemId={5} />
 					<StarshipDetails itemId={9} />
 
-					<PersonList>{({name}) => <span>{name}</span>}</PersonList>
-					<StarshipList>{({name}) => <span>{name}</span>}</StarshipList>
-					<PlanetList>{({name}) => <span>{name}</span>}</PlanetList>
+					<PersonList />
+					<StarshipList />
+					<PlanetList />
 				</div>
 			</ErrorBoundry>
 		);

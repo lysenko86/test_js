@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Spinner from '../components/spinner';
-import ErrorIndicator from '../components/error-indicator';
+//import ErrorIndicator from '../components/error-indicator';
 
 const withData = (View, getData) => {
 	return class extends Component {
