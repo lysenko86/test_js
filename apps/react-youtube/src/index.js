@@ -1,6 +1,6 @@
 /*
 	source: https://www.youtube.com/watch?v=xJZa2_aldDs
-	stack: npx, create-react-app, react
+	stack: npx, create-react-app, react, hooks, own hooks, lazy loading, modal window
 	start ---> npm start
 */
 

@@ -1,3 +1,9 @@
+/*
+	source: https://www.udemy.com/course/pro-react-redux/learn/lecture/17163718
+	stack: create-react-app, react, hooks (useState)
+	start ---> npm run start
+*/
+
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
