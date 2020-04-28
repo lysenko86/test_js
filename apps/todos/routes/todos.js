@@ -5,7 +5,7 @@ const router = Router();
 router.get('/', async (req, res) => {
 	const todos = await Todo.find({}).lean();
 	res.render('index', {
-		title: 'Todos list',
+		title: 'Todos - Todos list',
 		isIndex: true,
 		todos
 	});
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 
 router.get('/create', (req, res) => {
 	res.render('create', {
-		title: 'Create todo',
+		title: 'Todos - Create todo',
 		isCreate: true
 	});
 });
