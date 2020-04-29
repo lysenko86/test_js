@@ -1,6 +1,6 @@
 /*
 	source: https://www.udemy.com/course/pro-react-redux
-	stack: create-react-app, bootstrap, swapi.dev, react
+	stack: create-react-app, bootstrap, swapi.dev, react, react-router-dom
 	start ---> npm run start
 */
 
