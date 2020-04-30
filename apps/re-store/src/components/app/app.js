@@ -1,20 +1,19 @@
 import React from 'react';
-import Spinner from '../spinner';
-import ErrorBoundry from '../error-boundry';
+import { Route, Switch } from 'react-router-dom';
+import { HomePage, CartPage } from '../pages';
 import ErrorIndicator from '../error-indicator';
-import { BookstoreServiceProvider } from '../bookstore-service-context';
 import './app.css';
 
 const App = () => {
 	return (
-		<ErrorBoundry>
-			<BookstoreServiceProvider bookstoreService={'TEST TEST TEST TEST'}>
-				<div className="container app-component">
-					<div className="app-component__spinner"><Spinner /></div>
-					<div className="app-component__error-indicator"><ErrorIndicator text="Bad connection"/></div>
-				</div>
-			</BookstoreServiceProvider>
-		</ErrorBoundry>
+		<Switch>
+			<Route path="/" exact component={HomePage} />
+			<Route path="/card" component={CartPage} />
+			<Route render={({ location }) => {
+				const errorText = `"${location.pathname}" - is unknown URL address.`;
+				return <ErrorIndicator text={errorText} />;
+			}}></Route>
+		</Switch>
 	);
 };
 
