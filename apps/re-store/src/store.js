@@ -15,7 +15,7 @@ const stringMiddleware = () => (next) => (action) => {
 	return next(action);
 }
 
-/* Enhancers functions - змінюють процес створення store
+/* Enhancers functions - змінюють процес створення store і повертають store
 const logEnhancer = (createStore) => (...args) => {
 	const store = createStore(...args);
 	const originalDispatch = store.dispatch;
