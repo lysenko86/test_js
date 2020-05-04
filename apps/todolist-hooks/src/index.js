@@ -1,7 +1,8 @@
 /*
 	source: https://www.youtube.com/watch?v=V1rhxheJg4A
-	stack backend: nodejs, express, yarn, axios
-	stack frontend: React, react-router-dom, node-sass, bootstrap
+	stack: firebase, firebase-tools,
+		yarn, axios, react, react-dom, react-router-dom, node-sass, bootstrap, react-transition-group
+		hooks (useState, useContext, useReducer, useEffect)
 	npm install -g nodemon
 	start ---> nodemon index.js
 */

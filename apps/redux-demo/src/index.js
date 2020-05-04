@@ -1,5 +1,6 @@
 /*
 	source: https://www.youtube.com/watch?v=YdYyYMFPa44
+	same source: https://monsterlessons.com/project/series/redux-js-dlya-nachinayushih
 	stack: webpack, redux, redux-thunk, redux-logger, redux-devtools-extension
 	start ---> npm start
 */
