@@ -4,7 +4,6 @@
 	stack frontend: React, react-router-dom, node-sass, bootstrap
 	npm install -g nodemon
 	start ---> nodemon index.js
-
 */
 
 import React from 'react';
