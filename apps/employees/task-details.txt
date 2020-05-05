@@ -1,0 +1,86 @@
+1) https://www.udemy.com/course/ecommerce-shop-react-redux/learn/lecture/15534660#overview
+2) https://www.udemy.com/course/react-hooks-writing-real-project/learn/lecture/17253322#overview
+3) https://www.youtube.com/watch?v=G3GGXIhggGs
+4) як авторизуватись і тримати сессію? токен слати на сервак? куки? тільки на фронті тримати дані?
+5) use React Redux Saga
+
+
+
+=== Items
+- SPA
+- authentication page
+- page with data grid
+- use https://firebase.google.com for backend
+- use React Redux Saga
+
+- use bootstrap
+
+
+
+=== Details
+
+--- employee
+  - id
+  - name
+  - active
+  - department
+  - password
+
+--- authentication page
+  any emploeer can enter name + password for login
+  Please login
+  input login
+  input password
+
+--- page with data grid
+  <pagination>
+  HEADER = Hello, name; addBtn; logoutBtn
+  search field input + SearchBtn
+  table >>> | view btn | edit btn | empID | empName | empActive [YES/NO] | empDepartment select | Delete btn
+  <pagination>
+
+--- filtering by search value
+  change table rows AND PAGEs count
+  - it should be request on server + get users 10 SORTED BY ID
+
+--- empDepartment select
+  - HR
+  - Tech
+  - Finance
+
+--- modal window COMPONENT
+
+--- Delete btn
+  modal window - are you sure?
+  btnOk, btnNo
+  - it should be request on server + get users 10 SORTED BY ID
+
+--- edit btn
+  modal window of edit form
+  empName: input
+  empActive: CheckBox
+  empDepartment: Select
+  btnSave, btnCancel
+  - it should be request on server
+
+--- view btn
+  modal window of show info
+  empName: text
+  empActive: Yes/No
+  empDepartment: text
+  btnOk
+
+--- add btn
+  modal window of edit form
+  empName: input >>> empty
+  empActive: CheckBox >>> uncheck
+  empDepartment: Select >>> -none-
+  btnSave, btnCancel
+  - it should be request on server + get users 10 SORTED BY ID
+
+
+
+=== result
+- zip format
+- put Google drive
+- send link to download jobs@ukeess.com
