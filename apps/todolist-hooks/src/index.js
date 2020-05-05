@@ -5,6 +5,7 @@
 		hooks (useState, useContext, useReducer, useEffect)
 	npm install -g nodemon
 	start ---> nodemon index.js
+	it works on: https://todolist-hooks-31dc9.web.app/
 */
 
 import React from 'react';
