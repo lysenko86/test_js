@@ -1,0 +1,8 @@
+export const EMPLOYEE_GET_ALL = 'EMPLOYEE_GET_ALL';
+export const EMPLOYEE_ADD = 'EMPLOYEE_ADD';
+export const EMPLOYEE_EDIT = 'EMPLOYEE_EDIT';
+export const EMPLOYEE_GET = 'EMPLOYEE_GET';
+export const EMPLOYEE_REMOVE = 'EMPLOYEE_REMOVE';
+
+export const AUTH_LOGIN = 'EMPLOYEE_REMOVE';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
