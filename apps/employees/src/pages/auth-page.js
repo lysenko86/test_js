@@ -1,4 +1,5 @@
 import React from 'react';
+
 import AuthWelcome from '../components/auth-welcome';
 import AuthForm from '../components/auth-form';
 

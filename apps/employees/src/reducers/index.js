@@ -1,8 +1,15 @@
 import { combineReducers } from 'redux';
-import employeeReducer from './employee-reducer';
+
+import alertReducer from './alert-reducer';
+import modalReducer from './modal-reducer';
+import authReducer from './auth-reducer';
+import employeesReducer from './employees-reducer';
 
 const rootReducer = combineReducers({
-	employees: employeeReducer
+	alert: alertReducer,
+	modal: modalReducer,
+	auth: authReducer,
+	employees: employeesReducer
 });
 
 export default rootReducer;

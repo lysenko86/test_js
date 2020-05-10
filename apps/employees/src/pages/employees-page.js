@@ -1,19 +1,14 @@
 import React from 'react';
-import Table from '../components/table';
-import Pagination from '../components/pagination';
-import Modal from '../components/modal';
-import Spinner from '../components/spinner';
 
-const EmployeesPage = () => {
+import Table from '../containers/table';
+
+const EmployeesPage = ({ history, match }) => {
+	const employeeId = match.params.id;
 	return (
 		<div className="employees-page">
-			<Spinner />
-			<Pagination />
-			<Table />
-			<Pagination />
-			<Modal />
+			<Table employeeId={employeeId} history={history} />
 		</div>
-	);
-}
+	)
+};
 
 export default EmployeesPage;

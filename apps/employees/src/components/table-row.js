@@ -1,19 +1,7 @@
 import React, { Fragment } from 'react';
 
-const TableRow = ({employee}) => {
-	const {id, name, active, department} = employee;
-
-	const onShow = (id) => {
-		console.log('ACTION - GetProfile, id =', id);
-	}
-
-	const onEdit = (id) => {
-		console.log('ACTION - EditProfile, id =', id);
-	}
-
-	const onRemove = (id) => {
-		console.log('ACTION - RemoveProfile, id =', id);
-	}
+const TableRow = ({ employee, onEmployeeView, onEmployeeEdit, onEmployeeRemove }) => {
+	const { id, name, active, department } = employee;
 
 	return (
 		<Fragment>
@@ -25,17 +13,17 @@ const TableRow = ({employee}) => {
 				<button
 					type="button"
 					className="btn btn-outline-primary btn-sm"
-					onClick={() => onShow(id)}
+					onClick={() => onEmployeeView(id)}
 				>View</button>
 				<button
 					type="button"
 					className="btn btn-outline-primary btn-sm"
-					onClick={() => onEdit(id)}
+					onClick={() => onEmployeeEdit(id)}
 				>Edit</button>
 				<button
 					type="button"
 					className="btn btn-danger btn-sm"
-					onClick={() => onRemove(id)}
+					onClick={() => onEmployeeRemove(id)}
 				>Delete</button>
 			</td>
 		</Fragment>

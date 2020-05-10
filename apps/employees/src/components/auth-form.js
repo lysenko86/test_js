@@ -10,7 +10,7 @@ const AuthForm = () => {
 	return (
 		<div className="auth-page">
 			<h1>Welcome, please authorize</h1>
-			<form>
+			<form onSubmit={onSubmit}>
 				<div className="form-group">
 					<label>Enter login:</label>
 					<input type="text" className="form-control" />
@@ -21,7 +21,7 @@ const AuthForm = () => {
 					<input type="password" className="form-control" />
 					<small className="form-text text-muted">The pasword is "123456"</small>
 				</div>
-				<button type="submit" className="btn btn-primary" onClick={onSubmit}>Login</button>
+				<button type="submit" className="btn btn-primary">Login</button>
 			</form>
 		</div>
 	);

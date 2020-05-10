@@ -1,40 +1,25 @@
 import React from 'react';
 
-const Pagination = () => {
-	const pagesCount = 5;
+const Pagination = ({ pagesObj }) => {
+	const { itemsOnPage, itemsCount, currentPage, changePage } = pagesObj;
+
+	const pagesCount = Math.ceil(itemsCount / itemsOnPage);
 	const pages = new Array(pagesCount).fill(0).map((_, i) => i + 1);
-	let activePage = 1;
-	let disablePrevBtn = true;
-	let disableNextBtn = false;
+	let disablePrevBtn = currentPage === 1;
+	let disableNextBtn = currentPage === pagesCount;
 
-	const prevPage = () => {
-		activePage--;
-		getPageData();
-	}
+	const prevPage = () => currentPage > 1 ? changePage(currentPage - 1) : false;
+	const nextPage = () => currentPage < pagesCount ? changePage(currentPage + 1) : false;
 
-	const nextPage = () => {
-		activePage++;
-		getPageData();
-	}
-
-	const getPageData = (page) => {
-		if (page) {
-			activePage = page;
-		}
-		disablePrevBtn = activePage === 1;
-		disableNextBtn = activePage === pagesCount;
-		console.log(`ACTION - GetData on page ${activePage}`);
-	}
-
-	return (
+	return pagesCount <= 1 ? null : (
 		<nav>
 			<ul className="pagination justify-content-center">
 				<li className={`page-item${disablePrevBtn ? ' disabled' : ''}`}>
 					<span className="page-link" onClick={prevPage}><span>&laquo;</span></span>
 				</li>
 				{ pages.map((page, index) => (
-					<li className={`page-item${page === activePage ? ' active' : ''}`} key={index}>
-						<span className="page-link" onClick={() => getPageData(page)}>{page}</span>
+					<li className={`page-item${page === currentPage ? ' active' : ''}`} key={index}>
+						<span className="page-link" onClick={() => changePage(page)}>{page}</span>
 					</li>
 				) ) }
 				<li className={`page-item${disableNextBtn ? ' disabled' : ''}`}>

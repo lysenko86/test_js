@@ -4,6 +4,11 @@
 4) як авторизуватись і тримати сессію? токен слати на сервак? куки? тільки на фронті тримати дані?
 5) use React Redux Saga
 
+hoc - реквести з error  і спіннер
+hoc - модалка
+
+departments зробити з бази
+
 
 
 === Items
@@ -27,10 +32,12 @@
   - password
 
 --- authentication page
-  any emploeer can enter name + password for login
+  some user have login and password
   Please login
   input login
   input password
+  or
+  Welcome text
 
 --- page with data grid
   <pagination>
