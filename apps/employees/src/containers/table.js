@@ -137,12 +137,12 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	changePage: page => dispatch(employeesChangeCurrentPage(page)),
-	employeesFetch: () => dispatch(employeesFetch()),
-	employeesGet: (id, action) => dispatch(employeesGet(id, action)),
+	employeesFetch: employeesFetch(dispatch),
+	employeesGet: employeesGet(dispatch),
 	employeesGetClear: () => dispatch(employeesGetClear()),
-	employeesAdd: (employee, cbAlert) => dispatch(employeesAdd(employee, cbAlert)),
-	employeesEdit: (employee, cbAlert) => dispatch(employeesEdit(employee, cbAlert)),
-	employeesRemove: (id, cbAlert) => dispatch(employeesRemove(id, cbAlert)),
+	employeesAdd: employeesAdd(dispatch),
+	employeesEdit: employeesEdit(dispatch),
+	employeesRemove: employeesRemove(dispatch),
 
 	alertShow: (type, text) => dispatch(alertShow(type, text)),
 	modalShow: component => dispatch(modalShow(component)),

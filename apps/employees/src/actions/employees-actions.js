@@ -1,27 +1,12 @@
 import firebaseService from '../services/firebase-service';
 import {
 	EMPLOYEES_CHANGE_CURRENT_PAGE,
-
-	EMPLOYEES_FETCH_REQUEST,
-	EMPLOYEES_FETCH_SUCCESS,
-	EMPLOYEES_FETCH_FAILURE,
-
-	EMPLOYEES_GET_REQUEST,
-	EMPLOYEES_GET_SUCCESS,
-	EMPLOYEES_GET_FAILURE,
+	EMPLOYEES_FETCH_REQUEST, EMPLOYEES_FETCH_SUCCESS, EMPLOYEES_FETCH_FAILURE,
+	EMPLOYEES_GET_REQUEST, EMPLOYEES_GET_SUCCESS, EMPLOYEES_GET_FAILURE,
 	EMPLOYEES_GET_CLEAR,
-
-	EMPLOYEES_ADD_REQUEST,
-	EMPLOYEES_ADD_SUCCESS,
-	EMPLOYEES_ADD_FAILURE,
-
-	EMPLOYEES_EDIT_REQUEST,
-	EMPLOYEES_EDIT_SUCCESS,
-	EMPLOYEES_EDIT_FAILURE,
-
-	EMPLOYEES_REMOVE_REQUEST,
-	EMPLOYEES_REMOVE_SUCCESS,
-	EMPLOYEES_REMOVE_FAILURE
+	EMPLOYEES_ADD_REQUEST, EMPLOYEES_ADD_SUCCESS, EMPLOYEES_ADD_FAILURE,
+	EMPLOYEES_EDIT_REQUEST, EMPLOYEES_EDIT_SUCCESS, EMPLOYEES_EDIT_FAILURE,
+	EMPLOYEES_REMOVE_REQUEST, EMPLOYEES_REMOVE_SUCCESS, EMPLOYEES_REMOVE_FAILURE
 } from './types';
 
 export const employeesChangeCurrentPage = page => ({
@@ -29,100 +14,99 @@ export const employeesChangeCurrentPage = page => ({
 	payload: page
 });
 
-const employeesFetchRequest = () => ({
-	type: EMPLOYEES_FETCH_REQUEST
-});
-const employeesFetchSuccess = employees => ({
-	type: EMPLOYEES_FETCH_SUCCESS,
-	payload: employees || []
-});
-const employeesFetchFailure = error => ({
-	type: EMPLOYEES_FETCH_FAILURE,
-	payload: error
-});
-export const employeesFetch = () => dispatch => {
-	dispatch(employeesFetchRequest());
-	const funcSuccess = employees => dispatch(employeesFetchSuccess(employees));
-	const funcError = message => dispatch(employeesFetchFailure(message));
-	firebaseService.employeesFetch(funcSuccess, funcError);
+export const employeesFetch = dispatch => async () => {
+	dispatch({ type: EMPLOYEES_FETCH_REQUEST });
+	try {
+		const { data } = await firebaseService.employeesFetch();
+		const employees = [];
+		for (let key in data) {
+			employees.push({ ...data[key], id: key });
+		}
+		dispatch({
+			type: EMPLOYEES_FETCH_SUCCESS,
+			payload: employees
+		});
+	} catch({ message }) {
+		dispatch({
+			type: EMPLOYEES_FETCH_FAILURE,
+			payload: message
+		});
+	}
 };
 
-const employeesGetRequest = id => ({
-	type: EMPLOYEES_GET_REQUEST,
-	payload: id
-});
-const employeesGetSuccess = employee => ({
-	type: EMPLOYEES_GET_SUCCESS,
-	payload: employee
-});
-const employeesGetFailure = error => ({
-	type: EMPLOYEES_GET_FAILURE,
-	payload: error
-});
-export const employeesGet = (id, action) => dispatch => {
-	dispatch(employeesGetRequest());
-	const funcSuccess = employee => dispatch(employeesGetSuccess({ ...employee, action }));
-	const funcError = message => dispatch(employeesGetFailure(message));
-	firebaseService.employeesGet(funcSuccess, funcError, id);
+export const employeesGet = dispatch => async (id, action) => {
+	const getErrorObj = payload => ({ type: EMPLOYEES_GET_FAILURE, payload });
+	dispatch({ type: EMPLOYEES_GET_REQUEST });
+	try {
+		const { data } = await firebaseService.employeesGet(id);
+		if (data !== null) {
+			dispatch({
+				type: EMPLOYEES_GET_SUCCESS,
+				payload: { ...data, id, action }
+			});
+		} else {
+			dispatch(getErrorObj('Employee was not found.'));
+		}
+	} catch({ message }) {
+		dispatch(getErrorObj(message));
+	}
 };
 
-export const employeesGetClear = () => ({
-	type: EMPLOYEES_GET_CLEAR
-});
+export const employeesGetClear = () => ({ type: EMPLOYEES_GET_CLEAR });
 
-const employeesAddRequest = employee => ({
-	type: EMPLOYEES_ADD_REQUEST,
-	payload: employee
-});
-const employeesAddSuccess = employee => ({
-	type: EMPLOYEES_ADD_SUCCESS,
-	payload: employee
-});
-const employeesAddFailure = error => ({
-	type: EMPLOYEES_ADD_FAILURE,
-	payload: error
-});
-export const employeesAdd = (employee, cbAlert) => dispatch => {
-	dispatch(employeesAddRequest());
-	const funcSuccess = employee => dispatch(employeesAddSuccess(employee));
-	const funcError = message => dispatch(employeesAddFailure(message));
-	firebaseService.employeesAdd(funcSuccess, funcError, employee, cbAlert);
+export const employeesAdd = dispatch => async (employee, cbAlert) => {
+	dispatch({ type: EMPLOYEES_ADD_REQUEST });
+	try {
+		const { data } = await firebaseService.employeesAdd(employee);
+		dispatch({
+			type: EMPLOYEES_ADD_SUCCESS,
+			payload: { ...employee, id: data.name }
+		});
+		if (typeof cbAlert === 'function') {
+			cbAlert();
+		}
+	} catch({ message }) {
+		dispatch({
+			type: EMPLOYEES_ADD_FAILURE,
+			payload: message
+		});
+	}
 };
 
-const employeesEditRequest = employee => ({
-	type: EMPLOYEES_EDIT_REQUEST,
-	payload: employee
-});
-const employeesEditSuccess = employee => ({
-	type: EMPLOYEES_EDIT_SUCCESS,
-	payload: employee
-});
-const employeesEditFailure = error => ({
-	type: EMPLOYEES_EDIT_FAILURE,
-	payload: error
-});
-export const employeesEdit = (employee, cbAlert) => dispatch => {
-	dispatch(employeesEditRequest());
-	const funcSuccess = employee => dispatch(employeesEditSuccess(employee));
-	const funcError = message => dispatch(employeesEditFailure(message));
-	firebaseService.employeesEdit(funcSuccess, funcError, employee, cbAlert);
+export const employeesEdit = dispatch => async (employee, cbAlert) => {
+	dispatch({ type: EMPLOYEES_EDIT_REQUEST });
+	try {
+		const { data } = await firebaseService.employeesEdit(employee);
+		dispatch({
+			type: EMPLOYEES_EDIT_SUCCESS,
+			payload: { ...data, id: employee.id }
+		});
+		if (typeof cbAlert === 'function') {
+			cbAlert();
+		}
+	} catch({ message }) {
+		dispatch({
+			type: EMPLOYEES_EDIT_FAILURE,
+			payload: message
+		});
+	}
 };
 
-const employeesRemoveRequest = id => ({
-	type: EMPLOYEES_REMOVE_REQUEST,
-	payload: id
-});
-const employeesRemoveSuccess = id => ({
-	type: EMPLOYEES_REMOVE_SUCCESS,
-	payload: id
-});
-const employeesRemoveFailure = error => ({
-	type: EMPLOYEES_REMOVE_FAILURE,
-	payload: error
-});
-export const employeesRemove = (id, cbAlert) => dispatch => {
-	dispatch(employeesRemoveRequest());
-	const funcSuccess = id => dispatch(employeesRemoveSuccess(id));
-	const funcError = message => dispatch(employeesRemoveFailure(message));
-	firebaseService.employeesRemove(funcSuccess, funcError, id, cbAlert);
+export const employeesRemove = dispatch => async (id, cbAlert) => {
+	dispatch({ type: EMPLOYEES_REMOVE_REQUEST });
+	try {
+		await firebaseService.employeesRemove(id);
+		dispatch({
+			type: EMPLOYEES_REMOVE_SUCCESS,
+			payload: id
+		});
+		if (typeof cbAlert === 'function') {
+			cbAlert();
+		}
+	} catch({ message }) {
+		dispatch({
+			type: EMPLOYEES_REMOVE_FAILURE,
+			payload: message
+		});
+	}
 };
