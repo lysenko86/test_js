@@ -5,7 +5,45 @@
 5) use React Redux Saga
 
 hoc - реквести з error  і спіннер
-hoc - модалка
+hoc - модалка - просто компонент без редюсера
+при getbyId виконувати 2 екшена - в employee та в employees
+ компонентах в нас доступний весь стейт, а також в екшенах - перевірити
+для view та edit - тримати не всі дані employee а тільки id і просто доставати з стейту.employees всі дані кожного раз - але при тому при getEmployeeById кожного разу в employees оновлювати дані
+для таблиці використовувати тільки id, так само і для departments - тільки id, самі дані окремо в сторі тримати
+замість одного редюсера employees - буде 4: employees, employeesPage, employee, departments(просто дані статичні)
+карточка mployee >>> js.entries <div>key <div>value
+
+переделать все екшени в функции и упростить mapDispatchToProps
+
+в редюсері переробити getNewItems в 3 ф-ції додати, редагувати, видалити
+
+редюсер employeesPage працює з пагінацією і пошуком
+
+отдельний редюсер для departments - окрема сутність
+
+в table в рендері rows передавати key параметром і TR писати в компоненті
+
+для пагінації також міняти URL - /employees/3___kjhfkjshf - парсить як сторінка і ID
+
+не існуючі сторінки і id-шніки обробляти через ALERT а не через ErrorBoundary
+
+заюзать classnames
+
+currentPage - брать не із стора а із url
+
+.view-container - для кожної сторінки pages
+
+заменить --- value ? null : <div> на value && <div>
+
+EMPLOYEES_GET_REQUEST и EMPLOYEES_GET_FAILURE - об'єднати
+
+додати selectors як мінімум для getEmployeeById - рахувати пагінацію
+
+алерти визивати не в тейблз а на тей самий екшен в редюсорі алерта
+
+я не зробив пошук
+
+пошук і пагінація - локальний стейт, а зі стору як з БД тільки дані підгрузити
 
 departments зробити з бази
 

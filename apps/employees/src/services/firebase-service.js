@@ -18,9 +18,9 @@ class FirebaseServiceClass {
 		return axios.post(url, employee);
 	};
 
-	employeesEdit = async employee => {
+	employeesEdit = employee => {
 		const url = `${this.apiUrl}/employees/${employee.id}.json`;
-		return await axios.put(url, employee);
+		return axios.put(url, employee);
 	};
 
 	employeesRemove = id => {
