@@ -19,7 +19,26 @@ hoc - модалка - просто компонент без редюсера
 
 редюсер employeesPage працює з пагінацією і пошуком
 
+добавить к Alert etTimeout на скритие , а от помилки еррор баундарі - не скриваємо вже
+
 отдельний редюсер для departments - окрема сутність
+
+пагінація і серч - робити запити на сервак, на початку 1 додатковий запит на кількість юзерів і побудувати кнопки-сторінки, після чого кешувати дані - власний айді і якщо вже є на клієнті завантажені дані - то запит на сервак не треба - сортування на серваку і на клієнті однакове, зв'язати serverId та clientId
+кешування реалізувати?
+робити 2 запити: getIds потім getEmployeesтільки тих яких немає в сторі
+очищається кеш простим оновленням сторінки
+пагінація - може можна послати запит в firebase запросить сторінку якусь? offset?
+?page=2&count=5
+
+{
+	users: [],
+	pageSize: 5,
+	totalUsersCount: 19,
+	currentPage: 3
+}
+getCountUser - не роюить окремим запитом, а повертати в кожному запиті
+екшени: GET_EMPLOYEES та GET_EMPLOYEES_COUNT
+
 
 в table в рендері rows передавати key параметром і TR писати в компоненті
 
@@ -46,6 +65,22 @@ EMPLOYEES_GET_REQUEST и EMPLOYEES_GET_FAILURE - об'єднати
 пошук і пагінація - локальний стейт, а зі стору як з БД тільки дані підгрузити
 
 departments зробити з бази
+
+замість thunk юзать САГУ!
+
+винести окремо loading на всю аплікуху один?
+
+
+getEmployees та getDepartments - 2 сайд ефекта - запустити через saga - yield all() --- або fork - яка різниця?
+використовується для відокремлення сайдефектів - функцій, які запити на сервак кидають
+як написати слухати декілька екшенів?
+https://github.com/maprihoda/react-redux-crud/blob/master/client/src/sagas/index.js
+yield all()
+yield all()
+
+
+використати redux-forms
+
 
 
 
@@ -129,3 +164,28 @@ departments зробити з бази
 - zip format
 - put Google drive
 - send link to download jobs@ukeess.com
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+================== авторизація
+
+https://qna.habr.com/q/457821
+https://www.youtube.com/watch?v=5s3CqW3uDgk
+
+
+isAuth в stroe мати таке поле
+
+
+https://www.youtube.com/watch?v=b3pU3hsJlNk&list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8&index=62
