@@ -15,11 +15,26 @@ hoc - модалка - просто компонент без редюсера
 
 переделать все екшени в функции и упростить mapDispatchToProps
 
+для форм використати redux-form
+https://redux-form.com/8.3.0/docs/gettingstarted.md/
+або просто хуки - бо форма то маленька а хуки продемонструвати теж круто
+точно хуки
+name = useState()
+value={password}
+onChange={e => setPassword(e.target.value)}
+const handleSubmit = event => { event.preventDefault(); }
+а помилки тільки при submit
+
 в редюсері переробити getNewItems в 3 ф-ції додати, редагувати, видалити
+
+url of employeer
+/employees/id
 
 редюсер employeesPage працює з пагінацією і пошуком
 
 добавить к Alert etTimeout на скритие , а от помилки еррор баундарі - не скриваємо вже
+
+перевірити роутер - може і не треба робити РЕНДЕР - бо і так в props будуть об'єкти history
 
 отдельний редюсер для departments - окрема сутність
 
@@ -69,6 +84,11 @@ departments зробити з бази
 замість thunk юзать САГУ!
 
 винести окремо loading на всю аплікуху один?
+
+
+авторизація
+isSuccessfullSubmit ? <Redirect to="/" /> : (
+localStorage.setItem('token', response.user.token);
 
 
 getEmployees та getDepartments - 2 сайд ефекта - запустити через saga - yield all() --- або fork - яка різниця?
