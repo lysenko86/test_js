@@ -1,22 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import AuthBlock from './auth-block';
 import MenuItems from './menu-items';
+import Spinner from '../../components/spinner';
+import { fetchUser, resetUser } from '../../actions';
 
-const NavBar = () => {
-	const isLoggined = false;
-	const username = null;
-	const onLogout = () => {};
+class NavBar extends Component {
+	componentDidMount() {
+		this.props.fetchUser();
+	}
 
-	return (
-		<nav className="navbar navbar-dark navbar-expand-lg bg-primary">
-			<div className="menu-container">
-				<div className="navbar-brand">Employees</div>
-				<MenuItems />
-			</div>
-			{ isLoggined && <AuthBlock username={username} onLogout={onLogout} />}
-		</nav>
-	);
-}
+	onLogout = () => {
+		this.props.resetUser();
+	};
 
-export default NavBar;
+	render() {
+		const { user, isLoggedIn, isLoading } = this.props;
+
+		return (
+			<nav className="navbar navbar-dark navbar-expand-lg bg-primary">
+				<div className="menu-container">
+					<div className="navbar-brand">Employees</div>
+					<MenuItems />
+				</div>
+				{ isLoading && <Spinner /> }
+				{ !isLoading && isLoggedIn && <AuthBlock username={user.username} onLogout={this.onLogout} /> }
+			</nav>
+		);
+	}
+};
+
+const mapStateToProps = ({ user }) => ({
+	user: user.data,
+	isLoggedIn: user.isLoggedIn,
+	isLoading: user.isLoading
+});
+
+const mapDispatchToProps = {
+	fetchUser,
+	resetUser
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

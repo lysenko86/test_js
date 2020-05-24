@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 
-const Alert = ({ type, message }) => {
-	const { text, setText } = useState(message);
+import { hideAlert } from '../actions';
 
-	return text && (
-		<div className={`alert alert-${type}`}>
-			<strong>Attention!</strong>&nbsp; {text}
-			<button type="button" className="close" onClick={() => setText('')}>
+const Alert = ({ type, message, hideAlert }) => {
+	const classNames = `alert alert-${type || 'success'}`;
+
+	return !message ? null : (
+		<div className={classNames}>
+			<strong>Attention!</strong>&nbsp; {message}
+			<button type="button" className="close" onClick={hideAlert}>
 				<span>&times;</span>
 			</button>
 		</div>
 	);
 };
 
-export default Alert;
+const mapStateToProps = ({ alert }) => ({
+	type: alert.type,
+	message: alert.message
+});
+
+const mapDispatchToProps = {
+	hideAlert
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Alert);

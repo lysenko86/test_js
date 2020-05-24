@@ -1,5 +1,9 @@
-//import { USERS__GET_USER } from './types';
+import { USERS__FETCH_USER, USERS__RESET_USER } from './types';
 
-// export const getUser = () => ({
-// 	type: USERS__GET_USER
-// });
+export const fetchUser = () => ({
+	type: USERS__FETCH_USER
+});
+
+export const resetUser = () => ({
+	type: USERS__RESET_USER
+});

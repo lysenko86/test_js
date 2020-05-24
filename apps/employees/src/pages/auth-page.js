@@ -7,7 +7,11 @@ const AuthPage = () => {
 	//const isLogined = false;
 
 	//return isLogined ? <AuthWelcome /> : <AuthForm />;
-	return <div className="auth-page">AUTH PAGE</div>;
+	return (
+		<div className="auth-page">
+			<span>AUTH PAGE</span>
+		</div>
+	);
 }
 
 export default AuthPage;

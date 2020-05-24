@@ -4,6 +4,6 @@ import usersSagas from './users-sagas';
 
 export default function* rootSaga() {
 	yield all([
-		usersSagas
+		...usersSagas
 	]);
 };

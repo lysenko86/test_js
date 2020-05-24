@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 
-//import alertReducer from './alert-reducer';
-//import modalReducer from './modal-reducer';
+import alertsReducer from './alerts-reducer';
 import usersReducer from './users-reducer';
+//import modalReducer from './modal-reducer';
 //import employeesReducer from './employees-reducer';
 
 const rootReducer = combineReducers({
-	//alert: alertReducer,
+	alert: alertsReducer,
+	user: usersReducer,
 	//modal: modalReducer,
-	users: usersReducer,
 	//employees: employeesReducer
 });
 
