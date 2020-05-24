@@ -1,17 +1,11 @@
 import React from 'react';
 
-//import AuthWelcome from '../components/auth-welcome';
-//import AuthForm from '../components/auth-form';
+import Auth from '../containers/auth';
 
-const AuthPage = () => {
-	//const isLogined = false;
-
-	//return isLogined ? <AuthWelcome /> : <AuthForm />;
-	return (
-		<div className="auth-page">
-			<span>AUTH PAGE</span>
-		</div>
-	);
-}
+const AuthPage = () => (
+	<div className="auth-page">
+		<Auth />
+	</div>
+);
 
 export default AuthPage;

@@ -3,20 +3,15 @@ import { connect } from 'react-redux';
 
 import AuthBlock from './auth-block';
 import MenuItems from './menu-items';
-import Spinner from '../../components/spinner';
-import { fetchUser, resetUser } from '../../actions';
+import { fetchUser, logoutUser } from '../../actions';
 
 class NavBar extends Component {
 	componentDidMount() {
 		this.props.fetchUser();
 	}
 
-	onLogout = () => {
-		this.props.resetUser();
-	};
-
 	render() {
-		const { user, isLoggedIn, isLoading } = this.props;
+		const { user, isLoggedIn, logoutUser } = this.props;
 
 		return (
 			<nav className="navbar navbar-dark navbar-expand-lg bg-primary">
@@ -24,8 +19,7 @@ class NavBar extends Component {
 					<div className="navbar-brand">Employees</div>
 					<MenuItems />
 				</div>
-				{ isLoading && <Spinner /> }
-				{ !isLoading && isLoggedIn && <AuthBlock username={user.username} onLogout={this.onLogout} /> }
+				{ isLoggedIn && <AuthBlock username={user.username} onLogout={logoutUser} /> }
 			</nav>
 		);
 	}
@@ -33,13 +27,12 @@ class NavBar extends Component {
 
 const mapStateToProps = ({ user }) => ({
 	user: user.data,
-	isLoggedIn: user.isLoggedIn,
-	isLoading: user.isLoading
+	isLoggedIn: user.isLoggedIn
 });
 
 const mapDispatchToProps = {
 	fetchUser,
-	resetUser
+	logoutUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

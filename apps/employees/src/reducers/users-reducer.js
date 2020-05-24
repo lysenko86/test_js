@@ -1,11 +1,13 @@
 import {
 	USERS__FETCH_USER_REQUEST, USERS__FETCH_USER_SUCCESS, USERS__FETCH_USER_FAILURE,
-	USERS__RESET_USER_SUCCESS
+	USERS__LOGOUT_USER_SUCCESS,
+	USERS__LOGIN_USER_REQUEST, USERS__LOGIN_USER_SUCCESS, USERS__LOGIN_USER_FAILURE
 } from '../actions/types';
 
 const initialState = {
 	isLoggedIn: false,
-	isLoading: false,
+	isLoadingToken: false,
+	isLoadingLogin: false,
 	data: null
 }
 
@@ -14,24 +16,43 @@ const usersReducer = (state=initialState, { type, payload }) => {
 
 		case USERS__FETCH_USER_REQUEST: return {
 			...state,
-			isLoading: true
+			isLoadingToken: true
+		};
+
+		case USERS__LOGIN_USER_REQUEST: return {
+			...state,
+			isLoadingLogin: true
 		};
 
 		case USERS__FETCH_USER_SUCCESS: return {
 			...state,
 			isLoggedIn: true,
-			isLoading: false,
-			data: payload.user
+			isLoadingToken: false,
+			data: payload
+		};
+
+		case USERS__LOGIN_USER_SUCCESS: return {
+			...state,
+			isLoggedIn: true,
+			isLoadingLogin: false,
+			data: payload
 		};
 
 		case USERS__FETCH_USER_FAILURE: return {
 			...state,
 			isLoggedIn: false,
-			isLoading: true,
+			isLoadingToken: false,
 			data: null
 		};
 
-		case USERS__RESET_USER_SUCCESS: return {
+		case USERS__LOGIN_USER_FAILURE: return {
+			...state,
+			isLoggedIn: false,
+			isLoadingLogin: false,
+			data: null
+		};
+
+		case USERS__LOGOUT_USER_SUCCESS: return {
 			...state,
 			isLoggedIn: false,
 			data: null
