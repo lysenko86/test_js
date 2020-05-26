@@ -19,22 +19,10 @@ const usersReducer = (state=initialState, { type, payload }) => {
 			isLoadingToken: true
 		};
 
-		case USERS__LOGIN_USER_REQUEST: return {
-			...state,
-			isLoadingLogin: true
-		};
-
 		case USERS__FETCH_USER_SUCCESS: return {
 			...state,
 			isLoggedIn: true,
 			isLoadingToken: false,
-			data: payload
-		};
-
-		case USERS__LOGIN_USER_SUCCESS: return {
-			...state,
-			isLoggedIn: true,
-			isLoadingLogin: false,
 			data: payload
 		};
 
@@ -43,6 +31,18 @@ const usersReducer = (state=initialState, { type, payload }) => {
 			isLoggedIn: false,
 			isLoadingToken: false,
 			data: null
+		};
+
+		case USERS__LOGIN_USER_REQUEST: return {
+			...state,
+			isLoadingLogin: true
+		};
+
+		case USERS__LOGIN_USER_SUCCESS: return {
+			...state,
+			isLoggedIn: true,
+			isLoadingLogin: false,
+			data: payload
 		};
 
 		case USERS__LOGIN_USER_FAILURE: return {

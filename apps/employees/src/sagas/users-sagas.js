@@ -8,8 +8,7 @@ import {
 	USERS__LOGIN_USER,
 	USERS__LOGIN_USER_REQUEST, USERS__LOGIN_USER_SUCCESS, USERS__LOGIN_USER_FAILURE
 } from '../actions/types';
-import { logoutUser } from '../actions';
-import { showAlert } from '../actions';
+import { logoutUser, showAlert } from '../actions';
 
 
 
@@ -54,8 +53,7 @@ function* logoutUserWorker() {
 
 
 
-function loginUser(payload) {
-	const { login, password } = payload;
+function loginUser({ login, password }) {
 	return firebaseService.usersGetByLoginPassword(login, password);
 }
 
