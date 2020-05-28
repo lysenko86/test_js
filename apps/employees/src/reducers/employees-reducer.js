@@ -1,12 +1,14 @@
 import {
-	EMPLOYEES__FETCH_EMPLOYEES_REQUEST, EMPLOYEES__FETCH_EMPLOYEES_SUCCESS, EMPLOYEES__FETCH_EMPLOYEES_FAILURE
+	EMPLOYEES__FETCH_EMPLOYEES_REQUEST, EMPLOYEES__FETCH_EMPLOYEES_SUCCESS, EMPLOYEES__FETCH_EMPLOYEES_FAILURE,
+	EMPLOYEES__FILTER_EMPLOYEE
 } from '../actions/types';
 
 const initialState = {
 	items: {},
 	countItems: 0,
 	isLoading: false,
-	countOnPage: 4
+	countOnPage: 4,
+	searchValue: ''
 }
 
 const employeesReducer = (state=initialState, { type, payload }) => {
@@ -21,12 +23,18 @@ const employeesReducer = (state=initialState, { type, payload }) => {
 			...state,
 			isLoading: false,
 			countItems: payload.countItems,
+			searchValue: '',
 			items: payload.items
 		};
 
 		case EMPLOYEES__FETCH_EMPLOYEES_FAILURE: return {
 			...state,
 			isLoading: false
+		};
+
+		case EMPLOYEES__FILTER_EMPLOYEE: return {
+			...state,
+			searchValue: payload
 		};
 
 		default: return state;

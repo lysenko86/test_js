@@ -1,12 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const SearchForm = () => {
+const SearchForm = ({ isLoading, searchValue, filterEmployees }) => {
+	const [ value, setValue ] = useState(searchValue);
+
+	useEffect(() => {
+		setValue(searchValue);
+	}, [ searchValue ]);
+
+	const searchHandle = () => {
+		filterEmployees(value);
+	};
+
+	const clearHandle = () => {
+		setValue('');
+		filterEmployees('');
+	};
+
+	const clearBtn = <button
+		className="btn btn-outline-danger clear-btn"
+		onClick={clearHandle}
+	>&times;</button>;
+
 	return (
-		<form className="form-inline">
-			<label htmlFor="inlineFormInputName2">Name</label>
-			<input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Employee Name" />
-			<button type="submit" className="btn btn-primary my-1">Search</button>
-		</form>
+		<div className="input-group">
+			{ value && clearBtn }
+			<input
+				type="text"
+				className="form-control"
+				placeholder="Employee Name..."
+				value={value}
+				onChange={e => setValue(e.target.value)}
+			/>
+			<div className="input-group-append">
+				<button
+					className="btn btn-primary"
+					type="button"
+					disabled={isLoading}
+					onClick={searchHandle}
+				>Search</button>
+			</div>
+		</div>
 	);
 }
 

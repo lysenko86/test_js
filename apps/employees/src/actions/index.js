@@ -5,14 +5,14 @@ import * as employeesActions from './employees-actions';
 
 const { showAlert, hideAlert } = alertsActions;
 const { fetchUser, logoutUser, loginUser } = usersActions;
-const { fetchEmployees/*, employeesFetch, employeesGet, employeesGetClear,
+const { fetchEmployees, filterEmployees/*, employeesFetch, employeesGet, employeesGetClear,
 	employeesAdd, employeesEdit, employeesRemove*/ } = employeesActions;
 //const { modalShow, modalHide } = modalActions;
 
 export {
 	showAlert, hideAlert,
 	fetchUser, logoutUser, loginUser,
-	fetchEmployees
+	fetchEmployees, filterEmployees
 	// employeesGet, employeesGetClear,
 	//	employeesAdd, employeesEdit, employeesRemove,
 	//modalShow, modalHide

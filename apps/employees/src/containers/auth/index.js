@@ -9,11 +9,7 @@ import { logoutUser } from '../../actions';
 const Auth = ({ isLoadingToken, isLoggedIn, user, logoutUser }) => {
 	const content = isLoggedIn ? <AuthWelcome username={user.username} onLogout={logoutUser} /> : <AuthForm />;
 
-	return (
-		<div className="auth-page">
-			{ isLoadingToken ? <Spinner /> : content }
-		</div>
-	)
+	return isLoadingToken ? <Spinner /> : content;
 };
 
 const mapStateToProps = ({ user }) => ({

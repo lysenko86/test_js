@@ -5,7 +5,8 @@ import Cells from './cells';
 import Pagination from './pagination';
 import SearchForm from './search-form';
 import Spinner from '../../components/spinner';
-import { fetchEmployees } from '../../actions';
+import { fetchEmployees, filterEmployees } from '../../actions';
+import { filterItems } from '../../utils';
 
 class Table extends Component {
 	componentDidMount() {
@@ -27,7 +28,10 @@ class Table extends Component {
 	}
 
 	render() {
-		const { employees, countItems, countOnPage, url, currentPage } = this.props;
+		const {
+			isLoading, employees, countItems, countOnPage, url, currentPage,
+			searchValue, filterEmployees
+		} = this.props;
 		const items = this.objToArr(employees);
 		const countPages = Math.ceil(countItems / countOnPage);
 
@@ -36,20 +40,24 @@ class Table extends Component {
 		);
 
 		const table = noEmployees ? null : (
-			<div className="employees-page__table">
+			<div className="employees-page__table pt-4">
 				<Pagination url={url} countPages={countPages} currentPage={currentPage} />
 				<Cells items={items}/>
 				<Pagination url={url} countPages={countPages} currentPage={currentPage} />
 			</div>
 		);
 
-		return this.props.isLoading ? <Spinner /> : (
+		return (
 			<Fragment>
 				<div className="employees-page__top-bar">
-					<button className="btn btn-primary" onClick={() => {}}>Add new employee</button>
-					<SearchForm />
+					<button className="btn btn-primary" onClick={() => {}} disabled={isLoading}>Add new employee</button>
+					<SearchForm
+						isLoading={isLoading}
+						searchValue={searchValue}
+						filterEmployees={filterEmployees}
+					/>
 				</div>
-				{ noEmployees || table }
+				{ isLoading ? <Spinner /> : (noEmployees || table) }
 			</Fragment>
 		)
 	}
@@ -57,13 +65,15 @@ class Table extends Component {
 
 const mapStateToProps = ({ employees }) => ({
 	isLoading: employees.isLoading,
-	employees: employees.items,
+	employees: filterItems(employees.items, employees.searchValue),
+	searchValue: employees.searchValue,
 	countItems: employees.countItems,
 	countOnPage: employees.countOnPage
 });
 
 const mapDispatchToProps = {
-	fetchEmployees
+	fetchEmployees,
+	filterEmployees
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
@@ -81,7 +91,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Table);
 
 
 
-// потім пошук
 // потім модалки
 // перевірити як заміняється по ключа employees state - items и заміняється по ключам?
 

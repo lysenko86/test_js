@@ -1,10 +1,13 @@
-import {
-	EMPLOYEES__FETCH_EMPLOYEES
-} from './types';
+import { EMPLOYEES__FETCH_EMPLOYEES, EMPLOYEES__FILTER_EMPLOYEE } from './types';
 
 export const fetchEmployees = page => ({
 	type: EMPLOYEES__FETCH_EMPLOYEES,
 	payload: page
+});
+
+export const filterEmployees = searchValue => ({
+	type: EMPLOYEES__FILTER_EMPLOYEE,
+	payload: searchValue
 });
 
 
