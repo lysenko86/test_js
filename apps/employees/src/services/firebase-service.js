@@ -27,11 +27,11 @@ class FirebaseServiceClass {
 		const res = await axios.get(url);
 		return res.data ? Object.keys(res.data) : [];
 	};
-	employeesFetch = async (page, countOnPage) => {
+	employeesFetch = async (currentPage=1, countOnPage) => {
 		const ids = await this.employeesIdsFetch();
 		const countItems = ids.length;
 		ids.sort();
-		const indexId = countOnPage * (page - 1);
+		const indexId = countOnPage * (currentPage - 1);
 		const startId = ids[indexId];
 		const limitToFirst = countOnPage ? `&limitToFirst=${countOnPage}` : '';
 		const startAt = startId ? `&startAt="${startId}"` : '';

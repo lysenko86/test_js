@@ -1,0 +1,12 @@
+.employees-page {
+	&__table {
+		.btn {
+			margin-left: 5px;
+		}
+	}
+
+	&__top-bar {
+		display: flex;
+		justify-content: space-between;
+	}
+}

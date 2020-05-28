@@ -1,8 +1,10 @@
-import { EMPLOYEES__FETCH_EMPLOYEES } from './types';
+import {
+	EMPLOYEES__FETCH_EMPLOYEES
+} from './types';
 
-export const fetchEmployees = (page, countOnPage) => ({
+export const fetchEmployees = page => ({
 	type: EMPLOYEES__FETCH_EMPLOYEES,
-	payload: { page, countOnPage }
+	payload: page
 });
 
 

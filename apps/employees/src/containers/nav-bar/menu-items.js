@@ -7,7 +7,7 @@ const MenuItems = () => (
 			<NavLink className="nav-link" to='/' exact>Auth page</NavLink>
 		</li>
 		<li className="nav-link">
-			<NavLink className="nav-link" to='/employees/'>Table page</NavLink>
+			<NavLink className="nav-link" to='/employees'>Table page</NavLink>
 		</li>
 	</ul>
 );

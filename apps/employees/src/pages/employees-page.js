@@ -1,14 +1,16 @@
 import React from 'react';
+import { parse } from 'query-string';
 
 import Table from '../containers/table';
 
-const EmployeesPage = (/*{ history, match }*/) => {
-	//const employeeId = match.params.id;
-	const employeeId = '';
-	const history = '';
+const EmployeesPage = ({ location, match }) => {
+	const employeeId = match.params.id;
+	const currentPage = Number(parse(location.search).page) || 1;
+	const url = location.pathname;
+
 	return (
 		<div className="employees-page">
-			<Table employeeId={employeeId} history={history} />
+			<Table url={url} employeeId={employeeId} currentPage={currentPage} />
 		</div>
 	)
 };

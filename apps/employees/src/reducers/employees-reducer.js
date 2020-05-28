@@ -5,7 +5,8 @@ import {
 const initialState = {
 	items: {},
 	countItems: 0,
-	isLoading: false
+	isLoading: false,
+	countOnPage: 4
 }
 
 const employeesReducer = (state=initialState, { type, payload }) => {
@@ -20,7 +21,7 @@ const employeesReducer = (state=initialState, { type, payload }) => {
 			...state,
 			isLoading: false,
 			countItems: payload.countItems,
-			items: { ...state.items, ...payload.items }
+			items: payload.items
 		};
 
 		case EMPLOYEES__FETCH_EMPLOYEES_FAILURE: return {
@@ -59,11 +60,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-	items: [],
 	employee: null,
-	currentPage: 1,
-	isLoading: false,
-	error: null
 };
 
 const getNewItems = (items, employee) => {

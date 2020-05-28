@@ -9,7 +9,7 @@ import { showAlert } from '../actions';
 const Routes = ({ showAlert }) => (
 	<Switch>
 		<Route path='/' exact component={AuthPage} />
-		<Route path='/employees/:params?' component={EmployeesPage} />
+		<Route path='/employees/:id?' component={EmployeesPage} />
 		<Route render={({ location }) => {
 			showAlert(`"${location.pathname}" - is unknown URL address.`, 'danger');
 		}} />

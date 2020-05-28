@@ -1,4 +1,4 @@
-import { takeEvery, put, call } from 'redux-saga/effects';
+import { takeEvery, put, call, select } from 'redux-saga/effects';
 
 import firebaseService from '../services/firebase-service';
 import {
@@ -9,14 +9,15 @@ import { showAlert } from '../actions';
 
 
 
-function fetchEmployees({ page, countOnPage }) {
-	return firebaseService.employeesFetch(page, countOnPage);
+function fetchEmployees(currentPage, countOnPage) {
+	return firebaseService.employeesFetch(currentPage, countOnPage);
 }
 
 function* fetchEmployeesWorker({ payload }) {
 	yield put({ type: EMPLOYEES__FETCH_EMPLOYEES_REQUEST });
+	const pageDetails = yield select(state => state.employees);
 	try {
-		const data = yield call(fetchEmployees, payload);
+		const data = yield call(fetchEmployees, payload, pageDetails.countOnPage);
 		yield put({
 			type: EMPLOYEES__FETCH_EMPLOYEES_SUCCESS,
 			payload: data
