@@ -11,6 +11,10 @@ import { showAlert, showModal, hideModal, fetchEmployees, filterEmployees, getEm
 import { objToArr, filterItems, getCountPages, getEmployeesUrlWithToggleId } from '../../utils';
 
 class Table extends Component {
+	state = {
+		tableInited: false
+	}
+
 	componentDidMount() {
 		this.props.fetchEmployees(this.props.currentPage);
 		const { employeeId, showModal, hideModal, history, getEmployeeClear } = this.props;
@@ -30,8 +34,9 @@ class Table extends Component {
 
 	componentDidUpdate(prevProps) {
 		const { currentPage, countItems, countOnPage, fetchEmployees, showAlert } = this.props;
-		if (prevProps.currentPage !== currentPage || prevProps.countItems !== countItems) {
+		if (prevProps.currentPage !== currentPage || (this.state.tableInited && prevProps.countItems !== countItems)) {
 			fetchEmployees(currentPage);
+			this.setState({ tableInited: true });
 		}
 		const countPages = getCountPages(countItems, countOnPage);
 		if (countPages > 0 && (currentPage < 1 || currentPage > countPages)) {
