@@ -4,15 +4,29 @@ import { connect } from 'react-redux';
 import Cells from './cells';
 import Pagination from './pagination';
 import SearchForm from './search-form';
+import EmployeeView from './employee-view';
 import Spinner from '../../components/spinner';
-import { showAlert, fetchEmployees, filterEmployees } from '../../actions';
-import { filterItems, getCountPages } from '../../utils';
+import { showAlert, showModal, hideModal, fetchEmployees, filterEmployees, getEmployeeClear } from '../../actions';
+import { objToArr, filterItems, getCountPages, getEmployeesUrlWithToggleId } from '../../utils';
 
 class Table extends Component {
 	componentDidMount() {
 		this.props.fetchEmployees(this.props.currentPage);
-		if (this.props.employeeId) {
-			//this.props.employeesGet(employeeId, 'view');
+		const { employeeId, showModal, hideModal, history, getEmployeeClear } = this.props;
+		if (employeeId) {
+			const closeViewHandler = () => {
+				history.push(getEmployeesUrlWithToggleId(history));
+				getEmployeeClear();
+				hideModal();
+			};
+			showModal({
+				title: 'View employee',
+				component: <EmployeeView
+					onClose={closeViewHandler}
+					employeeId={employeeId}
+				/>,
+				onClose: closeViewHandler
+			});
 		}
 	}
 
@@ -27,20 +41,12 @@ class Table extends Component {
 		}
 	}
 
-	objToArr(employees) {
-		const keys = Object.keys(employees);
-		return keys.map(key => ({
-			id: key,
-			...employees[key]
-		}));
-	}
-
 	render() {
 		const {
 			isLoading, employees, countItems, countOnPage, url, history, currentPage,
 			searchValue, filterEmployees
 		} = this.props;
-		const items = this.objToArr(employees);
+		const items = objToArr(employees);
 		const countPages = getCountPages(countItems, countOnPage);
 
 		const noEmployees = items.length ? null : (
@@ -81,8 +87,11 @@ const mapStateToProps = ({ employees }) => ({
 
 const mapDispatchToProps = {
 	showAlert,
+	showModal,
+	hideModal,
 	fetchEmployees,
-	filterEmployees
+	filterEmployees,
+	getEmployeeClear
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
@@ -100,7 +109,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Table);
 
 
 
-// потім модалки
 // перевірити як заміняється по ключа employees state - items и заміняється по ключам?
 
 
@@ -113,7 +121,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Table);
 /*
 
 import {
-	employeesGet, employeesGetClear, employeesAdd, employeesEdit
+	employeesAdd, employeesEdit
 } from '../actions';
 import EmployeeForm from '../components/employee-form';
 import EmployeeView from '../components/employee-view';
@@ -121,18 +129,7 @@ import EmployeeView from '../components/employee-view';
 class Table extends Component {
 	componentDidUpdate() {
 		const { employee } = this.props;
-		if (employee && employee.action === 'view') {
-			this.props.history.push(this.props.employee.id);
-			const modalObj = {
-				title: 'View employee',
-				component: <EmployeeView employee={this.props.employee} />,
-				afterClose: () => {
-					this.props.employeesGetClear();
-					this.props.history.replace('/employees/');
-				}
-			};
-			this.props.modalShow(modalObj);
-		} else if (employee && employee.action === 'edit') {
+		if (employee && employee.action === 'edit') {
 			const modalObj = {
 				title: 'Edit employee',
 				btnCloseTitle: '',
@@ -160,17 +157,6 @@ class Table extends Component {
 	}
 
 	render() {
-		const { isLoading, error, employees, currentPage, changePage, modalShow,
-			modalHide, employeesGet } = this.props;
-
-		const itemsOnPage = 5;
-		const itemsCount = employees.length;
-		const indexStart = (currentPage - 1) * itemsOnPage;
-		const indexEnd = currentPage * itemsOnPage;
-		const items = employees.slice(indexStart, indexEnd);
-
-		const pagesObj = { itemsOnPage, itemsCount, currentPage, changePage };
-
 		const modalObj = {
 			title: 'Add new employee',
 			btnCloseTitle: '',
@@ -181,13 +167,7 @@ class Table extends Component {
 	};
 };
 
-const mapStateToProps = state => ({
-	employee: state.employees.employee
-});
-
 const mapDispatchToProps = dispatch => ({
-	employeesGet: employeesGet(dispatch),
-	employeesGetClear: () => dispatch(employeesGetClear()),
 	employeesAdd: employeesAdd(dispatch),
 	employeesEdit: employeesEdit(dispatch),
 });

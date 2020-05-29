@@ -8,15 +8,13 @@ const { showModal, hideModal } = modalsActions;
 const { fetchUser, logoutUser, loginUser } = usersActions;
 const {
 	fetchEmployees, filterEmployees,
-	removeEmployee/*, employeesGet, employeesGetClear,
-	employeesAdd, employeesEdit*/ } = employeesActions;
+	removeEmployee, getEmployee, getEmployeeClear/*employeesAdd, employeesEdit*/
+} = employeesActions;
 
 export {
 	showAlert, hideAlert,
 	showModal, hideModal,
 	fetchUser, logoutUser, loginUser,
 	fetchEmployees, filterEmployees,
-	removeEmployee
-	// employeesGet, employeesGetClear,
-	//	employeesAdd, employeesEdit, 
+	removeEmployee, getEmployee, getEmployeeClear //	employeesAdd, employeesEdit,
 }

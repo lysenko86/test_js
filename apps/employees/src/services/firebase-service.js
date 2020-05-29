@@ -41,7 +41,7 @@ class FirebaseServiceClass {
 		return { items, countItems };
 	};
 
-	employeesRemove = (id) => {
+	employeesRemove = id => {
 		const url = `${this.apiUrl}/employees/${id}.json`;
 		return axios.delete(url);
 	};

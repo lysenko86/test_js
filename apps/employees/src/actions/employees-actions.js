@@ -1,6 +1,7 @@
 import {
 	EMPLOYEES__FETCH_EMPLOYEES, EMPLOYEES__FILTER_EMPLOYEE,
-	EMPLOYEES__REMOVE_EMPLOYEE
+	EMPLOYEES__REMOVE_EMPLOYEE,
+	EMPLOYEES__GET_EMPLOYEE, EMPLOYEES__GET_EMPLOYEE_CLEAR
 } from './types';
 
 export const fetchEmployees = page => ({
@@ -18,7 +19,14 @@ export const removeEmployee = id => ({
 	payload: id
 });
 
+export const getEmployee = id => ({
+	type: EMPLOYEES__GET_EMPLOYEE,
+	payload: id
+});
 
+export const getEmployeeClear = () => ({
+	type: EMPLOYEES__GET_EMPLOYEE_CLEAR
+});
 
 
 
@@ -35,31 +43,9 @@ export const removeEmployee = id => ({
 /*
 
 import {
-	EMPLOYEES_GET_REQUEST, EMPLOYEES_GET_SUCCESS, EMPLOYEES_GET_FAILURE,
-	EMPLOYEES_GET_CLEAR,
 	EMPLOYEES_ADD_REQUEST, EMPLOYEES_ADD_SUCCESS, EMPLOYEES_ADD_FAILURE,
 	EMPLOYEES_EDIT_REQUEST, EMPLOYEES_EDIT_SUCCESS, EMPLOYEES_EDIT_FAILURE,
 } from './types';
-
-export const employeesGet = dispatch => async (id, action) => {
-	const getErrorObj = payload => ({ type: EMPLOYEES_GET_FAILURE, payload });
-	dispatch({ type: EMPLOYEES_GET_REQUEST });
-	try {
-		const { data } = await firebaseService.employeesGet(id);
-		if (data !== null) {
-			dispatch({
-				type: EMPLOYEES_GET_SUCCESS,
-				payload: { ...data, id, action }
-			});
-		} else {
-			dispatch(getErrorObj('Employee was not found.'));
-		}
-	} catch({ message }) {
-		dispatch(getErrorObj(message));
-	}
-};
-
-export const employeesGetClear = () => ({ type: EMPLOYEES_GET_CLEAR });
 
 export const employeesAdd = dispatch => async (employee, cbAlert) => {
 	dispatch({ type: EMPLOYEES_ADD_REQUEST });

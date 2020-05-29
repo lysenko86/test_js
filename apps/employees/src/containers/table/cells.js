@@ -4,50 +4,31 @@ import { connect } from 'react-redux';
 import TableRow from './table-row';
 import EmployeeRemove from './employee-remove';
 import EmployeeView from './employee-view';
-import {
-	showModal, hideModal,
-	removeEmployee
-} from '../../actions';
+import { showModal, hideModal, getEmployeeClear } from '../../actions';
+import { getEmployeesUrlWithToggleId } from '../../utils';
 
-
-
-
- const employeesGet = () => {};
-
-
-
-
-
-const Cells = ({ items, history, showModal, hideModal, removeEmployee }) => {
-	const removeEmployeeHandle = (id) => {
-		removeEmployee(id);
-		hideModal();
-	}
-	const removeHandle = employee => {
+const Cells = ({ items, history, showModal, hideModal, getEmployeeClear }) => {
+	const removeHandler = employee => {
 		showModal({
 			title: 'Remove employee',
-			component: <EmployeeRemove
-				employee={employee}
-				onClose={hideModal}
-				onRemove={() => removeEmployeeHandle(employee.id)}
-			/>
+			component: <EmployeeRemove employee={employee} />
 		});
 	};
 
-	const closeViewEmployeeHandle = () => {
-		history.push(`/employees${history.location.search || ''}`);
+	const closeViewHandler = () => {
+		history.push(getEmployeesUrlWithToggleId(history));
+		getEmployeeClear();
 		hideModal();
 	};
-	const viewHandle = employee => {
-		const { pathname, search } = history.location;
-		history.push(`${pathname}/${employee.id}${search || ''}`);
+	const viewHandler = id => {
+		history.push(getEmployeesUrlWithToggleId(history, id));
 		showModal({
 			title: 'View employee',
 			component: <EmployeeView
-				employee={employee}
-				onClose={closeViewEmployeeHandle}
+				onClose={closeViewHandler}
+				employeeId={id}
 			/>,
-			onClose: closeViewEmployeeHandle
+			onClose: closeViewHandler
 		});
 	};
 
@@ -66,9 +47,9 @@ const Cells = ({ items, history, showModal, hideModal, removeEmployee }) => {
 				{ items.map((employee, index) => (
 					<tr key={index}><TableRow
 						employee={employee}
-						viewHandle={() => viewHandle(employee)}
-						onEmployeeEdit={(id) => employeesGet(id, 'edit')}
-						removeHandle={() => removeHandle(employee)}
+						viewHandler={() => viewHandler(employee.id)}
+						editHandler={(id) => console.log("employeesGet(id, 'edit')")}
+						removeHandler={() => removeHandler(employee)}
 					/></tr>
 				) ) }
 			</tbody>
@@ -79,7 +60,7 @@ const Cells = ({ items, history, showModal, hideModal, removeEmployee }) => {
 const mapDispatchToProps = {
 	showModal,
 	hideModal,
-	removeEmployee
+	getEmployeeClear
 };
 
 export default connect(null, mapDispatchToProps)(Cells);

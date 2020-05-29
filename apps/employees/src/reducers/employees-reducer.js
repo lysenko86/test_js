@@ -1,7 +1,8 @@
 import {
 	EMPLOYEES__FETCH_EMPLOYEES_REQUEST, EMPLOYEES__FETCH_EMPLOYEES_SUCCESS, EMPLOYEES__FETCH_EMPLOYEES_FAILURE,
 	EMPLOYEES__FILTER_EMPLOYEE,
-	EMPLOYEES__REMOVE_EMPLOYEE_REQUEST, EMPLOYEES__REMOVE_EMPLOYEE_SUCCESS, EMPLOYEES__REMOVE_EMPLOYEE_FAILURE
+	EMPLOYEES__REMOVE_EMPLOYEE_REQUEST, EMPLOYEES__REMOVE_EMPLOYEE_SUCCESS, EMPLOYEES__REMOVE_EMPLOYEE_FAILURE,
+	EMPLOYEES__GET_EMPLOYEE_REQUEST, EMPLOYEES__GET_EMPLOYEE_SUCCESS, EMPLOYEES__GET_EMPLOYEE_FAILURE, EMPLOYEES__GET_EMPLOYEE_CLEAR
 } from '../actions/types';
 import { removeItemById } from '../utils';
 
@@ -10,7 +11,9 @@ const initialState = {
 	countItems: 0,
 	isLoading: false,
 	countOnPage: 4,
-	searchValue: ''
+	searchValue: '',
+	isLoadingEmployee: false,
+	employee: null
 }
 
 const employeesReducer = (state=initialState, { type, payload }) => {
@@ -57,6 +60,27 @@ const employeesReducer = (state=initialState, { type, payload }) => {
 			isLoading: false
 		};
 
+		case EMPLOYEES__GET_EMPLOYEE_REQUEST: return {
+			...state,
+			isLoadingEmployee: true
+		};
+
+		case EMPLOYEES__GET_EMPLOYEE_SUCCESS: return {
+			...state,
+			isLoadingEmployee: false,
+			employee: payload
+		};
+
+		case EMPLOYEES__GET_EMPLOYEE_CLEAR: return {
+			...state,
+			employee: null
+		};
+
+		case EMPLOYEES__GET_EMPLOYEE_FAILURE: return {
+			...state,
+			isLoadingEmployee: false
+		};
+
 		default: return state;
 
 	}
@@ -68,26 +92,11 @@ export default employeesReducer;
 
 
 
-
-
-
-
-
-
-
-
 /*
-
 import {
-	EMPLOYEES_GET_REQUEST, EMPLOYEES_GET_SUCCESS, EMPLOYEES_GET_FAILURE,
-	EMPLOYEES_GET_CLEAR,
 	EMPLOYEES_ADD_REQUEST, EMPLOYEES_ADD_SUCCESS, EMPLOYEES_ADD_FAILURE,
 	EMPLOYEES_EDIT_REQUEST, EMPLOYEES_EDIT_SUCCESS, EMPLOYEES_EDIT_FAILURE,
 } from '../actions/types';
-
-const initialState = {
-	employee: null,
-};
 
 const getNewItems = (items, employee) => {
 	if (typeof employee === 'string') {
@@ -105,36 +114,6 @@ const getNewItems = (items, employee) => {
 		];
 	}
 };
-
-const employeesReducer = (state=initialState, action) => {
-	switch (action.type) {
-
-		case EMPLOYEES_GET_REQUEST:
-			return {
-				...state,
-				isLoading: true,
-				error: null
-			};
-
-		case EMPLOYEES_GET_SUCCESS:
-			return {
-				...state,
-				employee: action.payload,
-				isLoading: false
-			};
-
-		case EMPLOYEES_GET_FAILURE:
-			return {
-				...state,
-				isLoading: false,
-				error: action.payload
-			};
-
-		case EMPLOYEES_GET_CLEAR:
-			return {
-				...state,
-				employee: null
-			};
 
 		case EMPLOYEES_ADD_REQUEST:
 			return {
@@ -177,9 +156,4 @@ const employeesReducer = (state=initialState, action) => {
 				isLoading: false,
 				error: action.payload
 			};
-
-	}
-}
-
-
 */
