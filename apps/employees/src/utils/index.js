@@ -19,12 +19,6 @@ export const filterItems = (items, value) => {
 	return newItems;
 };
 
-export const removeItemById = (items, id) => {
-	const newItems = { ...items };
-	delete newItems[id];
-	return newItems;
-};
-
 export const getCountPages = (countItems, countOnPage) => {
 	return Math.ceil(countItems / countOnPage);
 };

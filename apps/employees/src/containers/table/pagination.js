@@ -6,15 +6,6 @@ import { stringify } from 'query-string';
 const Pagination = ({ url, countPages, currentPage }) => {
 	const pages = new Array(countPages).fill(0).map((_, i) => i + 1);
 
-	const prevBtnClasses = classNames({
-		'page-item': true,
-		'disabled': currentPage === 1
-	});
-	const nextBtnClasses = classNames({
-		'page-item': true,
-		'disabled': currentPage === countPages
-	});
-
 	const prevPageUrl = url + '?' + stringify({
 		page: currentPage > 1 ? currentPage - 1 : currentPage
 	});
@@ -25,22 +16,27 @@ const Pagination = ({ url, countPages, currentPage }) => {
 	return countPages <= 1 ? null : (
 		<nav>
 			<ul className="pagination justify-content-center">
-				<li className={prevBtnClasses}>
+				<li className={classNames({
+					'page-item': true,
+					'disabled': currentPage === 1
+				})}>
 					<Link className="page-link" to={prevPageUrl}><span>&laquo;</span></Link>
 				</li>
 				{ pages.map((page, index) => {
-					const btnClasses = classNames({
-						'page-item': true,
-						'active': page === currentPage
-					});
 					const pageUrl = url + '?' + stringify({ page });
 					return (
-						<li className={btnClasses} key={index}>
+						<li key={index} className={classNames({
+							'page-item': true,
+							'active': page === currentPage
+						})}>
 							<Link className="page-link" to={pageUrl}>{page}</Link>
 						</li>
 					)
 				} ) }
-				<li className={nextBtnClasses}>
+				<li className={classNames({
+					'page-item': true,
+					'disabled': currentPage === countPages
+				})}>
 					<Link className="page-link" to={nextPageUrl}><span>&raquo;</span></Link>
 				</li>
 			</ul>
