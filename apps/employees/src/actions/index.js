@@ -1,19 +1,22 @@
 import * as alertsActions from './alerts-actions';
+import * as modalsActions from './modals-actions';
 import * as usersActions from './users-actions';
 import * as employeesActions from './employees-actions';
-//import * as modalActions from './modal-actions';
 
 const { showAlert, hideAlert } = alertsActions;
+const { showModal, hideModal } = modalsActions;
 const { fetchUser, logoutUser, loginUser } = usersActions;
-const { fetchEmployees, filterEmployees/*, employeesFetch, employeesGet, employeesGetClear,
-	employeesAdd, employeesEdit, employeesRemove*/ } = employeesActions;
-//const { modalShow, modalHide } = modalActions;
+const {
+	fetchEmployees, filterEmployees,
+	removeEmployee/*, employeesGet, employeesGetClear,
+	employeesAdd, employeesEdit*/ } = employeesActions;
 
 export {
 	showAlert, hideAlert,
+	showModal, hideModal,
 	fetchUser, logoutUser, loginUser,
-	fetchEmployees, filterEmployees
+	fetchEmployees, filterEmployees,
+	removeEmployee
 	// employeesGet, employeesGetClear,
-	//	employeesAdd, employeesEdit, employeesRemove,
-	//modalShow, modalHide
+	//	employeesAdd, employeesEdit, 
 }

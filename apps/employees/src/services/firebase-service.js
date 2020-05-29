@@ -41,6 +41,11 @@ class FirebaseServiceClass {
 		return { items, countItems };
 	};
 
+	employeesRemove = (id) => {
+		const url = `${this.apiUrl}/employees/${id}.json`;
+		return axios.delete(url);
+	};
+
 	employeesGet = id => {
 		const url = `${this.apiUrl}/employees/${id}.json`;
 		return axios.get(url);
@@ -54,11 +59,6 @@ class FirebaseServiceClass {
 	employeesEdit = employee => {
 		const url = `${this.apiUrl}/employees/${employee.id}.json`;
 		return axios.put(url, employee);
-	};
-
-	employeesRemove = id => {
-		const url = `${this.apiUrl}/employees/${id}.json`;
-		return axios.delete(url);
 	};
 
 

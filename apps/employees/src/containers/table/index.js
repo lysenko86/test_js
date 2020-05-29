@@ -5,17 +5,25 @@ import Cells from './cells';
 import Pagination from './pagination';
 import SearchForm from './search-form';
 import Spinner from '../../components/spinner';
-import { fetchEmployees, filterEmployees } from '../../actions';
-import { filterItems } from '../../utils';
+import { showAlert, fetchEmployees, filterEmployees } from '../../actions';
+import { filterItems, getCountPages } from '../../utils';
 
 class Table extends Component {
 	componentDidMount() {
 		this.props.fetchEmployees(this.props.currentPage);
+		if (this.props.employeeId) {
+			//this.props.employeesGet(employeeId, 'view');
+		}
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.currentPage !== this.props.currentPage) {
-			this.props.fetchEmployees(this.props.currentPage);
+		const { currentPage, countItems, countOnPage, fetchEmployees, showAlert } = this.props;
+		if (prevProps.currentPage !== currentPage || prevProps.countItems !== countItems) {
+			fetchEmployees(currentPage);
+		}
+		const countPages = getCountPages(countItems, countOnPage);
+		if (countPages > 0 && (currentPage < 1 || currentPage > countPages)) {
+			showAlert(`Page №${currentPage} - is not exists.`, 'danger');
 		}
 	}
 
@@ -29,11 +37,11 @@ class Table extends Component {
 
 	render() {
 		const {
-			isLoading, employees, countItems, countOnPage, url, currentPage,
+			isLoading, employees, countItems, countOnPage, url, history, currentPage,
 			searchValue, filterEmployees
 		} = this.props;
 		const items = this.objToArr(employees);
-		const countPages = Math.ceil(countItems / countOnPage);
+		const countPages = getCountPages(countItems, countOnPage);
 
 		const noEmployees = items.length ? null : (
 			<h3 className="pt-5 text-center">The database have not employees yet</h3>
@@ -42,7 +50,7 @@ class Table extends Component {
 		const table = noEmployees ? null : (
 			<div className="employees-page__table pt-4">
 				<Pagination url={url} countPages={countPages} currentPage={currentPage} />
-				<Cells items={items}/>
+				<Cells items={items} history={history} />
 				<Pagination url={url} countPages={countPages} currentPage={currentPage} />
 			</div>
 		);
@@ -72,6 +80,7 @@ const mapStateToProps = ({ employees }) => ({
 });
 
 const mapDispatchToProps = {
+	showAlert,
 	fetchEmployees,
 	filterEmployees
 };
@@ -104,24 +113,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(Table);
 /*
 
 import {
-	alertShow,
-	modalShow, modalHide,
-	employeesGet, employeesGetClear, employeesAdd, employeesEdit, employeesRemove
+	employeesGet, employeesGetClear, employeesAdd, employeesEdit
 } from '../actions';
-import ErrorMessage from '../components/error-message';
 import EmployeeForm from '../components/employee-form';
 import EmployeeView from '../components/employee-view';
-import EmployeeRemove from '../components/employee-remove';
-import Modal from '../components/modal';
 
 class Table extends Component {
-	componentDidMount() {
-		const { employeeId } = this.props;
-		if (employeeId) {
-			this.props.employeesGet(employeeId, 'view');
-		}
-	}
-
 	componentDidUpdate() {
 		const { employee } = this.props;
 		if (employee && employee.action === 'view') {
@@ -162,12 +159,6 @@ class Table extends Component {
 		this.props.modalHide();
 	}
 
-	onEmployeeRemove = id => {
-		this.props.employeesRemove(id, () =>
-			this.props.alertShow('success', 'Employee was removed successfully.'));
-		this.props.modalHide();
-	}
-
 	render() {
 		const { isLoading, error, employees, currentPage, changePage, modalShow,
 			modalHide, employeesGet } = this.props;
@@ -186,40 +177,19 @@ class Table extends Component {
 			component: <EmployeeForm onSubmit={this.onEmployeeAdd} onClose={modalHide} />
 		};
 
-		const modalRemoveShow = (id) => {
-			modalShow({
-				title: 'Remove employee',
-				btnCloseTitle: '',
-				component: <EmployeeRemove onRemove={() => this.onEmployeeRemove(id)} onClose={modalHide} />
-			});
-		};
-
 		return true;
 	};
 };
 
 const mapStateToProps = state => ({
-	employees: state.employees.items,
-	currentPage: state.employees.currentPage,
-	isLoading: state.employees.isLoading,
-	error: state.employees.error,
 	employee: state.employees.employee
 });
 
 const mapDispatchToProps = dispatch => ({
-	changePage: page => dispatch(employeesChangeCurrentPage(page)),
-	employeesFetch: employeesFetch(dispatch),
 	employeesGet: employeesGet(dispatch),
 	employeesGetClear: () => dispatch(employeesGetClear()),
 	employeesAdd: employeesAdd(dispatch),
 	employeesEdit: employeesEdit(dispatch),
-	employeesRemove: employeesRemove(dispatch),
-
-	alertShow: (type, text) => dispatch(alertShow(type, text)),
-	modalShow: component => dispatch(modalShow(component)),
-	modalHide: () => dispatch(modalHide())
 });
-
-export default connect(mapStateToProps, mapDispatchToProps)(Table);
 
 */

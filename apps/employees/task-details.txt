@@ -31,6 +31,8 @@ url of employeer
 
 isAuth в stroe мати таке поле
 
+ЧОГО ШЛЕТЬСЯ 2 ЗАПИТИ EMPLOYEES__FETCH_EMPLOYEES_REQUEST
+
 пагінація limit та offset може воно підтримується у firebase???
 
 добавить к Alert etTimeout на скритие , а от помилки еррор баундарі - не скриваємо вже
