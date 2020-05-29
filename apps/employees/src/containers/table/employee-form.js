@@ -151,7 +151,7 @@ class EmployeeForm extends Component {
 				<button
 					type="submit"
 					className="btn btn-primary btn-sm"
-				>{employeeId ? 'Edit' : 'Add'}</button>
+				>{employeeId ? 'Save' : 'Add'}</button>
 				<button
 					type="button"
 					className="btn btn-secondary btn-sm float-right"
