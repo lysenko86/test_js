@@ -9,7 +9,7 @@
 		padding-left: 20px;
 	}
 
-	&__details:before {
+	&__details::before {
 		display: block;
 		content: '';
 		height: 1px;

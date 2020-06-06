@@ -1,23 +1,16 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import AuthPage from '../pages/auth-page';
 import EmployeesPage from '../pages/employees-page';
-import { showAlert } from '../actions';
+import WrongURL from '../pages/wrong-url-page';
 
-const Routes = ({ showAlert }) => (
+const Routes = () => (
 	<Switch>
 		<Route path='/' exact component={AuthPage} />
 		<Route path='/employees/:id?' component={EmployeesPage} />
-		<Route render={({ location }) => {
-			showAlert(`"${location.pathname}" - is unknown URL address.`, 'danger');
-		}} />
+		<Route path='*' component={WrongURL} />
 	</Switch>
 );
 
-const mapDispatchToProps = {
-	showAlert
-};
-
-export default connect(null, mapDispatchToProps)(Routes);
+export default Routes;
