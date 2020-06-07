@@ -7,7 +7,7 @@ import Spinner from '../spinner';
 import WeatherImg from '../weather-img';
 import geoService from '../../services/geo-service';
 import weatherService from '../../services/weather-service';
-import '../scss/index.scss';
+import '../../scss/index.scss';
 
 export default class App extends Component {
 	constructor() {
