@@ -1,4 +1,6 @@
 // source: https://youtu.be/nyIpDs2DJ_c?t=451
+// source: https://www.youtube.com/watch?v=MtO76yEYbxA&list=PLNkWIWHIRwMEm1FgiLjHqSky27x5rXvQa&index=2
+// source: https://www.youtube.com/watch?v=MNcl1Fni4cw&list=PLNkWIWHIRwMEm1FgiLjHqSky27x5rXvQa&index=3
 
 
 
@@ -14,8 +16,11 @@ const num: number = 3e10
 
 const message: string = 'Hello TypeScript'
 
-const numberArray: number[] = [1, 1, 2, 5, 8, 13]
-const numberArray2: Array<number> = [1, 1, 2, 5, 8, 13]
+const u: undefined = undefined;
+const n: null = null; // а не object как в JS
+
+const numberArray: number[] = [1, 1, 2, 5, 8, 13]   // Array Type
+const numberArray2: Array<number> = [1, 1, 2, 5, 8, 13]   // Generic Type
 const words: string[] = ['Hello', 'TypeScript']
 
 //Tuple - масив з різних типів даних
