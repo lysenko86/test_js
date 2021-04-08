@@ -1,14 +1,19 @@
 // source: https://youtu.be/nyIpDs2DJ_c?t=2186
+// source: https://www.youtube.com/watch?v=qrIuuJc2Zc8&list=PLNkWIWHIRwMEm1FgiLjHqSky27x5rXvQa
 
 
 
-function add(a: number, b: number): number {
+function add(a: number = 5, b?: number): number {
     return a + b
 }
 
 function toUpperCase(str: string): string {
     return str.trim().toUpperCase()
 }
+
+const createSkills = (name: string, ...skills: Array<string>): string => `${name}, my skills are ${skills.join()}`;
+
+const createObject = (): object => ({});
 
 
 

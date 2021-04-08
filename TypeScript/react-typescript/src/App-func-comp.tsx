@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+// Синтаксис типизации функционального компонента
+
 //const Title:React.FC<{title: string}> = ({title, children}) => <h1>{title}{children}</h1>;
 
 type TitleProps = {

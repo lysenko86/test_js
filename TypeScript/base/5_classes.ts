@@ -1,4 +1,6 @@
 // source: https://youtu.be/nyIpDs2DJ_c?t=2605
+// source: https://www.youtube.com/watch?v=OruUd2HULaI&list=PLNkWIWHIRwMEm1FgiLjHqSky27x5rXvQa
+// source: https://www.youtube.com/watch?v=wTwPThKzu-U&list=PLNkWIWHIRwMEm1FgiLjHqSky27x5rXvQa
 
 
 
@@ -6,10 +8,21 @@
 // Базовий приклад
 // ------------
 class Typescript {
-    version: string
+    version: string = '1.0.0';   // Значення по дефолту
+    private prop1: string = 'test';
+    static secret: number = 12345; // Статична проперті - доступна Typescript.secret - тобто без інстансу класу
 
     constructor(version: string) {
         this.version = version
+        this.prop1 = 'good'
+    }
+
+    set prop(value: string) {   // сеттер для проперті prop1
+      this.prop1 = value;
+    }
+
+    get prop() {   // геттер для проперті prop1
+      return this.prop1;
     }
 
     info(name: string) {
@@ -68,6 +81,27 @@ const cat = new Cat()
 //cat.voice // Інстанс класу не має доступу до protected пропертів
 cat.setVoice('test')
 console.log(cat.color)
+
+
+// Наслідування
+class User {
+  public name: string;
+  public age: number;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+  getName(): string {
+    return `${this.name}`;
+  }
+}
+class Me extends User {   // Наслідування за допомогою слова extends
+  constructor(age: number) {
+    super('name', age); // в конструкторі нащадка треба викликати super()
+  }
+}
+const max = new User('Max', 20);
+const bax = new Me(30);
 
 
 

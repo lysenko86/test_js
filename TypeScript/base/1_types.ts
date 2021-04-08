@@ -59,6 +59,9 @@ const id1: ID = 1234
 const id2: ID = '1234'
 //const id3: ID = true // помилка
 
+type Person = { name: string, age: number, nickName: string, job?: string };
+const user: Person = { name: 'Sasha', age: 35, nickName: 'Alex' };
+
 
 
 // ----------
