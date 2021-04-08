@@ -22,13 +22,18 @@ class Portal extends Component<PortalProps, {}> {
   }
 };
 
-const AuthContext = React.createContext({
+interface IContext {
+  isAuth: boolean,
+  toggleAuth: () => void,
+};
+const AuthContext = React.createContext<IContext>({
   isAuth: false,
   toggleAuth: () => {},
 });
 
 class Login extends Component {
   static contextType = AuthContext;
+  context!: React.ContextType<typeof AuthContext>
 
   render() {
     const { toggleAuth, isAuth } = this.context;
@@ -40,16 +45,16 @@ class Login extends Component {
   }
 }
 
-const Profile = () => (
+const Profile: React.FC = (): React.ReactElement => (
   <AuthContext.Consumer>
-    {({ isAuth }) => (
+    {({ isAuth }: IContext) => (
       <h1>{!isAuth ? 'Please log in' : 'You are logged in'}</h1>
     )}
   </AuthContext.Consumer>
 );
 
 class Context extends Component<{}, { isAuth: Boolean }> {
-  state = {
+  readonly state = {
     isAuth: false,
   }
 
@@ -61,9 +66,10 @@ class Context extends Component<{}, { isAuth: Boolean }> {
 
   render() {
     const { isAuth } = this.state;
+    const context: IContext = { isAuth, toggleAuth: this.toggleAuth };
 
     return (
-      <AuthContext.Provider value={{ isAuth, toggleAuth: this.toggleAuth }}>
+      <AuthContext.Provider value={context}>
         <Login />
         <Profile />
       </AuthContext.Provider>
