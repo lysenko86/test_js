@@ -1,4 +1,5 @@
 // source: https://youtu.be/nyIpDs2DJ_c
+// source: https://www.youtube.com/watch?v=ysQb60CQB8U&list=PLNkWIWHIRwMEm1FgiLjHqSky27x5rXvQa
 // Дженерік типи
 
 
@@ -14,3 +15,26 @@ function reverse<T>(array: T[]): T[] {// Дана ф-ція працює з ти
 
 reverse(arrayOfNumbers)
 reverse(arrayOfStrings)
+
+
+
+
+
+// Generic class - не просто класс а дженерік класс
+class User<T, K extends number> {
+  constructor(public name: T, public age: K) {}
+  public getPass(): string {
+    return `${this.name}${this.age}`;
+  }
+  public getSecret(): number {
+    return this.age**2;
+  }
+}
+
+//const sasha = new User('Sasha', '35');  // не буде працювати бо другий аргумент має бути від типу number
+const max = new User(123, 321);
+const leo = new User('Leo', 321);
+
+//sasha.getPass(); // "Sasha35"
+max.getPass(); // "123321"
+leo.getPass(); // "Leo321"

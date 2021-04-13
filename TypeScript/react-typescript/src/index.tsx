@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App-context-portal';
+import App from './App-hok';
 
 ReactDOM.render(<App />, document.getElementById('root'));
