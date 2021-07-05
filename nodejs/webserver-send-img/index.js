@@ -9,7 +9,7 @@ http.createServer(function(req, res){
     }
 
     if (name === 'mario') {
-        var file = '01-mario.png';
+        var file = 'mario.png';
         fs.stat(file, function(err, stat) {
             if (err) {
                 console.error(err);
@@ -29,12 +29,3 @@ http.createServer(function(req, res){
 }).listen(8124);
 
 console.log('Server running at http://127.0.0.1:8124/');
-
-
-// --------------------------------
-
-
-var addtwo = require('./01-addtwo').addtwo;
-var base = 10;
-console.log(addtwo(base));
-console.log(global);

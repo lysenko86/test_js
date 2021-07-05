@@ -1,6 +1,9 @@
 // source: https://www.udemy.com/course/nodejs-full-guide/learn/lecture/18386254#overview
 // documentation: https://nodejs.org/dist/latest-v14.x/docs/api/path.html
 
+// Основная необходимость модуля PATH - кросс-платформенность, т.е. решение проблемы с разницей в слэшах между виндой и юниксом
+// Плюс решение проблем с относительными и абсолютными путями
+
 const path = require('path'); // модуль для роботи з шляхами в node.js
 
 console.log(path.basename(__filename)); // отримати ім'я робочого файлу

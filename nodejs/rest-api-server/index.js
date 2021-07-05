@@ -1,3 +1,5 @@
+// Source: https://www.udemy.com/course/nodejs-full-guide/learn/lecture/18386414
+
 const http = require("http");
 const path = require('path');
 const fs = require('fs');
@@ -31,6 +33,15 @@ const server = http.createServer((req, res) => {
           res.end(content);
         }
       )
+    } else if (req.url === '/api/users') { // REST request
+      res.writeHead(200, {
+        'Content-Type': 'text/json'
+      });
+      const users = [
+        { name: 'Vladilen', age: 25 },
+        { name: 'Elena', age: 23 },
+      ];
+      res.end(JSON.stringify(users)); // JSON response
     }
 
   } else if (req.method === 'POST') {

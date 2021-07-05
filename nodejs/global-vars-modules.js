@@ -3,7 +3,7 @@
 console.log('Hello', __dirname); // абсолютний шлях до робочого каталогу
 console.log('Hello', __filename); // абсолютний шлях до робочого файлу
 
-const obj = require('./user'); // імпорт модуля
+const obj = require('./sub-file-user'); // імпорт модуля
 
 console.log('userObj >>>', obj.user);
 
